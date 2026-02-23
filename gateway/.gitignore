@@ -1,0 +1,6 @@
+node_modules
+dist
+gateway.db
+gateway.db-shm
+gateway.db-wal
+.env
