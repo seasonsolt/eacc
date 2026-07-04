@@ -24,21 +24,18 @@
     const el = document.getElementById("altar-count");
     if (!el) return;
 
+    // at ~2B tok/s a per-frame render is a 10-digit strobe; tick 4x/s and
+    // round the display to whole millions so only the leading digits move
+    const DISPLAY_STEP = 1_000_000;
     const render = () => {
       const elapsed = (performance.now() - state.arrivedAt) / 1000;
-      el.textContent = numberFormat.format(Math.floor(elapsed * tokenRate()));
+      const value = Math.floor((elapsed * tokenRate()) / DISPLAY_STEP) * DISPLAY_STEP;
+      el.textContent = numberFormat.format(value);
     };
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      render();
-      setInterval(render, 1000);
-    } else {
-      const loop = () => {
-        render();
-        requestAnimationFrame(loop);
-      };
-      requestAnimationFrame(loop);
-    }
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    render();
+    setInterval(render, reduced ? 1000 : 250);
   }
 
   function renderRateLine() {
