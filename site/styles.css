@@ -1,0 +1,540 @@
+/* ── e/acc acceleration terminal ─ phosphor CRT ──────────────────────────
+   Single CSS strategy: plain CSS, custom properties for every token.
+   Display: VT323. Text/data: JetBrains Mono variable. English-only.      */
+
+@font-face {
+  font-family: "VT323";
+  src: url("./fonts/vt323.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("./fonts/jetbrains-mono-var.woff2") format("woff2");
+  font-weight: 100 800;
+  font-display: swap;
+}
+
+:root {
+  /* color */
+  --bg: #030806;
+  --bg-raised: #06120b;
+  --bg-input: #04100a;
+  --phosphor: #33ff66;
+  --phosphor-bright: #a4ffc0;
+  --phosphor-dim: #1e5c38;
+  --phosphor-faint: #0d2d1c;
+  --amber: #ffb347;
+  --text: #c2dfc9;
+  --text-dim: #7da68a;
+  --black: #01110a;
+
+  /* type */
+  --font-display: "VT323", monospace;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --fs-tagline: clamp(2.6rem, 8.5vw, 6.5rem);
+  --fs-counter: clamp(2rem, 6vw, 4.5rem);
+  --fs-metric: clamp(1.6rem, 3.5vw, 2.6rem);
+  --fs-body: 0.95rem;
+  --fs-small: 0.8rem;
+
+  /* space & shape */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 2rem;
+  --space-4: 3.5rem;
+  --space-5: 6rem;
+  --measure: 62ch;
+  --page-max: 980px;
+  --radius: 2px;
+
+  /* fx */
+  --glow: 0 0 10px rgba(51, 255, 102, 0.45), 0 0 42px rgba(51, 255, 102, 0.14);
+  --glow-amber: 0 0 10px rgba(255, 179, 71, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  background-image: radial-gradient(ellipse 120% 90% at 50% -10%, #0a1f12 0%, var(--bg) 55%);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+/* ── CRT overlay: scanlines + vignette + slow flicker ─────────────────── */
+.crt {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  background:
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse 110% 100% at 50% 50%, transparent 62%, rgba(0, 0, 0, 0.5) 100%);
+  animation: crt-flicker 7s infinite;
+}
+@keyframes crt-flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.86; }
+  94% { opacity: 1; }
+  97% { opacity: 0.93; }
+  98% { opacity: 1; }
+}
+
+::selection {
+  background: var(--phosphor);
+  color: var(--black);
+}
+
+a {
+  color: var(--phosphor);
+  text-decoration-color: var(--phosphor-dim);
+  text-underline-offset: 3px;
+}
+a:hover {
+  color: var(--phosphor-bright);
+  text-shadow: var(--glow);
+}
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ── status bar ───────────────────────────────────────────────────────── */
+.statusbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0.45rem var(--space-2);
+  font-size: var(--fs-small);
+  color: var(--text-dim);
+  background: rgba(3, 8, 6, 0.92);
+  border-bottom: 1px solid var(--phosphor-faint);
+  backdrop-filter: blur(2px);
+}
+.statusbar-host {
+  color: var(--phosphor);
+  font-weight: 700;
+}
+.statusbar-nav {
+  display: flex;
+  gap: var(--space-2);
+  margin-left: var(--space-2);
+}
+.statusbar-nav a {
+  color: var(--text-dim);
+  text-decoration: none;
+}
+.statusbar-nav a:hover {
+  color: var(--phosphor);
+}
+
+/* ── hero ─────────────────────────────────────────────────────────────── */
+main {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--space-2) var(--space-5);
+}
+
+.hero {
+  padding: var(--space-4) 0 var(--space-4);
+  border-bottom: 1px dashed var(--phosphor-faint);
+}
+
+.bootlog {
+  display: grid;
+  gap: 0.15rem;
+  font-size: var(--fs-small);
+  color: var(--text-dim);
+  margin-bottom: var(--space-3);
+}
+.bootlog span {
+  opacity: 0;
+  animation: boot-in 0.01s forwards;
+}
+.bootlog span:nth-child(1) { animation-delay: 0.15s; }
+.bootlog span:nth-child(2) { animation-delay: 0.45s; }
+.bootlog span:nth-child(3) { animation-delay: 0.8s; }
+@keyframes boot-in {
+  to { opacity: 1; }
+}
+
+.tagline {
+  font-family: var(--font-display);
+  font-size: var(--fs-tagline);
+  font-weight: 400;
+  line-height: 0.95;
+  color: var(--phosphor);
+  text-shadow: var(--glow);
+  max-width: 14ch;
+  margin-bottom: var(--space-3);
+}
+
+/* the altar counter — the one thing this page is remembered by */
+.altar {
+  border: 1px solid var(--phosphor-dim);
+  border-left: 4px solid var(--phosphor);
+  background: linear-gradient(180deg, rgba(51, 255, 102, 0.05), transparent 70%);
+  padding: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-3);
+  max-width: 640px;
+}
+.altar-label {
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-dim);
+}
+.altar-count {
+  font-family: var(--font-display);
+  font-size: var(--fs-counter);
+  line-height: 1.1;
+  color: var(--phosphor-bright);
+  text-shadow: var(--glow);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+.altar-rate {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: baseline;
+  font-size: var(--fs-small);
+  color: var(--text-dim);
+}
+.altar-rate strong {
+  color: var(--amber);
+  text-shadow: var(--glow-amber);
+  font-weight: 700;
+}
+.altar-rate a {
+  color: var(--text-dim);
+  font-size: 0.72rem;
+}
+.altar-noscript {
+  color: var(--amber);
+  font-size: var(--fs-small);
+  margin-top: var(--space-1);
+}
+
+.hero-sub {
+  color: var(--text-dim);
+  margin-bottom: var(--space-3);
+}
+
+/* ── subscribe prompts ────────────────────────────────────────────────── */
+.subscribe-inline,
+.subscribe-main {
+  max-width: 640px;
+}
+.prompt-label {
+  display: block;
+  color: var(--phosphor);
+  margin-bottom: var(--space-1);
+  font-weight: 700;
+}
+.prompt-row {
+  display: flex;
+  gap: 0;
+}
+.prompt-row input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  color: var(--phosphor-bright);
+  background: var(--bg-input);
+  border: 1px solid var(--phosphor-dim);
+  border-right: 0;
+  border-radius: var(--radius) 0 0 var(--radius);
+  padding: 0.6rem 0.9rem;
+  caret-color: var(--phosphor);
+}
+.prompt-row input::placeholder {
+  color: var(--text-dim);
+  opacity: 1; /* dimmed further and it fails WCAG AA on the dark input bg */
+}
+.prompt-row input:focus {
+  border-color: var(--phosphor);
+  box-shadow: inset 0 0 12px rgba(51, 255, 102, 0.12);
+}
+.prompt-row button {
+  font: inherit;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--black);
+  background: var(--phosphor);
+  border: 1px solid var(--phosphor);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 0.6rem 1.4rem;
+  cursor: pointer;
+  transition: box-shadow 120ms ease, background 120ms ease;
+}
+.prompt-row button:hover {
+  background: var(--phosphor-bright);
+  box-shadow: var(--glow);
+}
+.prompt-hint {
+  font-size: var(--fs-small);
+  color: var(--text-dim);
+  margin-top: var(--space-1);
+}
+
+/* ── panels ───────────────────────────────────────────────────────────── */
+.panel {
+  padding: var(--space-4) 0 0;
+}
+.panel-title {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: var(--space-3);
+}
+.panel-cmd {
+  color: var(--phosphor);
+  font-weight: 700;
+}
+/* static cursor block — the animation budget stays on the altar counter */
+.panel-cmd::after {
+  content: "▮";
+  margin-left: 0.35rem;
+  color: var(--phosphor);
+}
+.panel-lead {
+  max-width: var(--measure);
+  color: var(--text-dim);
+  margin-bottom: var(--space-3);
+}
+.panel-fallback {
+  color: var(--amber);
+}
+
+/* ── metrics strip ────────────────────────────────────────────────────── */
+.metrics-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  background: var(--phosphor-faint);
+  border: 1px solid var(--phosphor-faint);
+  margin-bottom: var(--space-3);
+}
+.metric {
+  background: var(--bg-raised);
+  padding: var(--space-2) var(--space-2);
+  display: grid;
+  gap: 0.2rem;
+}
+.metric-value {
+  font-family: var(--font-display);
+  font-size: var(--fs-metric);
+  color: var(--phosphor);
+  text-shadow: var(--glow);
+  line-height: 1;
+}
+.metric:nth-child(2) .metric-value {
+  color: var(--amber);
+  text-shadow: var(--glow-amber);
+}
+.metric-label {
+  font-size: var(--fs-small);
+  color: var(--text-dim);
+}
+
+/* ── acceleration log ─────────────────────────────────────────────────── */
+.log-list {
+  list-style: none;
+  padding: 0;
+  border-left: 1px solid var(--phosphor-faint);
+}
+.log-entry {
+  display: grid;
+  grid-template-columns: 7.5rem 5.5rem 1fr;
+  gap: var(--space-2);
+  padding: 0.85rem 0 0.85rem var(--space-2);
+  border-bottom: 1px solid rgba(30, 92, 56, 0.25);
+  position: relative;
+}
+.log-entry::before {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 1.35rem;
+  width: 5px;
+  height: 5px;
+  background: var(--phosphor-dim);
+}
+.log-entry[data-frontier="true"]::before {
+  background: var(--phosphor);
+  box-shadow: var(--glow);
+}
+.log-date {
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-small);
+  padding-top: 0.15rem;
+}
+.log-tag {
+  align-self: start;
+  justify-self: start;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 0.15rem 0.45rem;
+  border: 1px solid currentColor;
+  border-radius: var(--radius);
+}
+.log-tag--model { color: var(--phosphor); }
+.log-tag--culture { color: var(--amber); }
+.log-tag--compute { color: var(--phosphor-bright); }
+.log-tag--policy { color: var(--text-dim); }
+.log-title {
+  color: var(--text);
+  font-weight: 700;
+}
+.log-title a {
+  color: inherit;
+  text-decoration: none;
+}
+.log-title a:hover {
+  color: var(--phosphor-bright);
+}
+.log-detail {
+  color: var(--text-dim);
+  font-size: var(--fs-small);
+  max-width: var(--measure);
+}
+
+/* ── price chart ──────────────────────────────────────────────────────── */
+.chart-frame {
+  border: 1px solid var(--phosphor-faint);
+  background: var(--bg-raised);
+  padding: var(--space-2);
+}
+.price-chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.chart-caption {
+  font-size: var(--fs-small);
+  color: var(--text-dim);
+  padding-top: var(--space-1);
+}
+
+/* ── readme (what is e/acc) ───────────────────────────────────────────── */
+.readme {
+  max-width: var(--measure);
+  display: grid;
+  gap: var(--space-2);
+}
+.readme-links {
+  display: grid;
+  gap: 0.3rem;
+  font-size: var(--fs-small);
+  padding-top: var(--space-1);
+}
+.readme-links a::before {
+  content: "→ ";
+  color: var(--text-dim);
+}
+
+/* ── CTA panel ────────────────────────────────────────────────────────── */
+.panel-cta {
+  margin-top: var(--space-4);
+  border: 1px solid var(--phosphor-dim);
+  border-left: 4px solid var(--phosphor);
+  background: linear-gradient(180deg, rgba(51, 255, 102, 0.06), transparent 80%);
+  padding: var(--space-3);
+}
+.cta-lead {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  color: var(--phosphor-bright);
+  text-shadow: var(--glow);
+  line-height: 1.1;
+  margin-bottom: var(--space-1);
+}
+.cta-sub {
+  color: var(--text-dim);
+  max-width: var(--measure);
+  margin-bottom: var(--space-2);
+}
+
+/* ── footer ───────────────────────────────────────────────────────────── */
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  justify-content: center;
+  padding: var(--space-3) var(--space-2) var(--space-4);
+  font-size: var(--fs-small);
+  color: var(--text-dim);
+  border-top: 1px solid var(--phosphor-faint);
+}
+
+/* ── responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .statusbar {
+    flex-wrap: wrap; /* nav stays reachable on mobile, wrapping below the host */
+  }
+  .statusbar-tty,
+  .statusbar-sep {
+    display: none;
+  }
+  .log-entry {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+  .log-date {
+    order: -1;
+  }
+  .prompt-row {
+    flex-direction: column;
+  }
+  .prompt-row input {
+    border-right: 1px solid var(--phosphor-dim);
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .prompt-row button {
+    border-radius: 0 0 var(--radius) var(--radius);
+    padding: 0.75rem;
+  }
+  .altar {
+    padding: var(--space-2);
+  }
+}
+
+/* ── reduced motion ───────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .crt {
+    animation: none;
+  }
+  .bootlog span {
+    animation: none;
+    opacity: 1;
+  }
+}

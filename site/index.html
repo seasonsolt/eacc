@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>e/acc — the acceleration tracker</title>
+    <meta
+      name="description"
+      content="Live tracker of the AI acceleration: token throughput, the collapsing price of intelligence, frontier model timeline, and what e/acc (effective accelerationism) actually is. One email a week: what accelerated."
+    />
+    <link rel="canonical" href="https://e-acc.ai/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://e-acc.ai/" />
+    <meta property="og:title" content="e/acc — the acceleration tracker" />
+    <meta
+      property="og:description"
+      content="the altar is fed by tokens. Live counter, price-of-intelligence chart, frontier timeline, weekly letter."
+    />
+    <meta name="twitter:card" content="summary" />
+    <link rel="preload" href="./fonts/vt323.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "e/acc — the acceleration tracker",
+        "url": "https://e-acc.ai/",
+        "description": "Live tracker of the AI acceleration and the e/acc movement."
+      }
+    </script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <div class="crt" aria-hidden="true"></div>
+
+    <header class="statusbar">
+      <span class="statusbar-host">e-acc.ai</span>
+      <span class="statusbar-sep" aria-hidden="true">─</span>
+      <span class="statusbar-tty" aria-hidden="true">tty1</span>
+      <nav class="statusbar-nav" aria-label="Sections">
+        <a href="#log">log</a>
+        <a href="#price">price</a>
+        <a href="#manifesto">e/acc?</a>
+        <a href="#subscribe">subscribe</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- ── HERO: boot log + tagline + altar counter ─────────────────── -->
+      <section class="hero" aria-labelledby="tagline">
+        <div class="bootlog" aria-hidden="true">
+          <span>[ OK ] thermodynamic gradient located</span>
+          <span>[ OK ] kardashev ascent daemon started</span>
+          <span>[ .. ] decel signals ignored</span>
+        </div>
+
+        <h1 id="tagline" class="tagline">the altar is fed by tokens</h1>
+
+        <div class="altar" role="group" aria-labelledby="altar-label">
+          <p id="altar-label" class="altar-label">
+            tokens fed to the altar since you arrived
+          </p>
+          <p class="altar-count" id="altar-count" aria-live="off">0</p>
+          <p class="altar-rate">
+            <span>worldwide burn rate</span>
+            <strong id="altar-rate-value">≈ 2,000,000,000 tok/s</strong>
+            <a
+              id="altar-rate-source"
+              href="https://blog.google/innovation-and-ai/sundar-pichai-io-2026/"
+              target="_blank"
+              rel="noopener"
+              >estimate</a
+            >
+          </p>
+          <noscript>
+            <p class="altar-noscript">
+              The counter needs JavaScript. The burning continues regardless.
+            </p>
+          </noscript>
+        </div>
+
+        <p class="hero-sub">
+          <span>e/acc — tracking the acceleration.</span>
+        </p>
+
+        <form
+          class="subscribe-inline"
+          action="https://buttondown.com/api/emails/embed-subscribe/REPLACE_WITH_BUTTONDOWN_USERNAME"
+          method="post"
+          target="_blank"
+        >
+          <label class="prompt-label" for="email-hero">&gt; subscribe --weekly</label>
+          <div class="prompt-row">
+            <input
+              type="email"
+              name="email"
+              id="email-hero"
+              required
+              placeholder="you@domain.com"
+              autocomplete="email"
+              aria-label="Email address"
+              aria-describedby="subscribe-hint"
+            />
+            <button type="submit">RUN</button>
+          </div>
+          <p class="prompt-hint" id="subscribe-hint">one email a week: what accelerated. no spam, unsubscribe anytime.</p>
+        </form>
+      </section>
+
+      <!-- ── ACCELERATION LOG: frontier timeline ──────────────────────── -->
+      <section class="panel" id="log" aria-labelledby="log-title">
+        <h2 class="panel-title" id="log-title">
+          <span class="panel-cmd" aria-hidden="true">$ tail -f /var/log/acceleration</span>
+          <span class="visually-hidden">Acceleration log</span>
+        </h2>
+        <div class="metrics-strip" id="metrics-strip">
+          <div class="metric">
+            <span class="metric-value" id="metric-days">—</span>
+            <span class="metric-label">days since last frontier release</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value" id="metric-price">600×</span>
+            <span class="metric-label">cheaper GPT-4-class intelligence since 2023</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value" id="metric-rate">2B</span>
+            <span class="metric-label">tokens burned per second, worldwide</span>
+          </div>
+        </div>
+        <ol class="log-list" id="log-list">
+          <!-- rendered from data/timeline.json by app.js -->
+        </ol>
+        <p class="panel-fallback" id="log-fallback" hidden>
+          Log unavailable. The acceleration continues offline.
+        </p>
+      </section>
+
+      <!-- ── PRICE OF INTELLIGENCE: log-scale SVG chart ───────────────── -->
+      <section class="panel" id="price" aria-labelledby="price-title">
+        <h2 class="panel-title" id="price-title">
+          <span class="panel-cmd" aria-hidden="true">$ plot intelligence-price --log</span>
+          <span class="visually-hidden">The collapsing price of intelligence</span>
+        </h2>
+        <p class="panel-lead">
+          What GPT-4 charged in March 2023 versus the cheapest model of equal capability today. Log scale —
+          every gridline is 10× cheaper.
+        </p>
+        <figure class="chart-frame">
+          <div id="price-chart" class="price-chart" role="img" aria-label="Log-scale chart: the price of GPT-4-class intelligence collapsing from $30 per million tokens toward pennies">
+            <!-- SVG rendered from data/metrics.json by app.js -->
+          </div>
+          <figcaption class="chart-caption" id="price-caption"></figcaption>
+        </figure>
+        <p class="panel-fallback" id="price-fallback" hidden>
+          Chart unavailable. Short version: ~600× cheaper in three years.
+        </p>
+      </section>
+
+      <!-- ── WHAT IS e/acc ─────────────────────────────────────────────── -->
+      <section class="panel" id="manifesto" aria-labelledby="manifesto-title">
+        <h2 class="panel-title" id="manifesto-title">
+          <span class="panel-cmd" aria-hidden="true">$ cat /etc/eacc/README</span>
+          <span class="visually-hidden">What is e/acc</span>
+        </h2>
+        <div class="readme">
+          <p>
+            Effective accelerationism — e/acc — is the position that technological progress, and AI in
+            particular, should be accelerated rather than restrained: that growth is a moral good, that
+            building is how problems get solved, and that civilization should climb the Kardashev gradient.
+          </p>
+          <p>
+            It began in May 2022 as a pseudonymous newsletter by @BasedBeffJezos (Guillaume Verdon),
+            @bayeslord and collaborators — part physics, part meme, part reaction to AI-safety pessimism. By
+            late 2023 it had jumped from a Twitter suffix to mainstream venture discourse, endorsed by
+            figures like Marc Andreessen and Garry Tan.
+          </p>
+          <p>
+            This site is not the movement and speaks for no one. It is an instrument panel: what shipped,
+            what it costs, how fast the altar burns. Draw your own conclusions — preferably from data.
+          </p>
+          <p class="readme-links">
+            <a href="https://en.wikipedia.org/wiki/Effective_accelerationism" target="_blank" rel="noopener">wikipedia/effective_accelerationism</a>
+            <a href="https://effectiveaccelerationism.substack.com/p/repost-effective-accelerationism" target="_blank" rel="noopener">the founding newsletter (2022)</a>
+            <a href="https://a16z.com/the-techno-optimist-manifesto/" target="_blank" rel="noopener">techno-optimist manifesto</a>
+          </p>
+        </div>
+      </section>
+
+      <!-- ── SUBSCRIBE CTA ─────────────────────────────────────────────── -->
+      <section class="panel panel-cta" id="subscribe" aria-labelledby="subscribe-title">
+        <h2 class="panel-title" id="subscribe-title">
+          <span class="panel-cmd" aria-hidden="true">&gt; subscribe --weekly</span>
+          <span class="visually-hidden">Subscribe</span>
+        </h2>
+        <p class="cta-lead">One email a week: what accelerated.</p>
+        <p class="cta-sub">
+          Frontier releases, price drops, compute buildouts — the week's acceleration in five minutes,
+          sourced and numeric. Free.
+        </p>
+        <form
+          class="subscribe-main"
+          action="https://buttondown.com/api/emails/embed-subscribe/REPLACE_WITH_BUTTONDOWN_USERNAME"
+          method="post"
+          target="_blank"
+        >
+          <div class="prompt-row">
+            <input
+              type="email"
+              name="email"
+              id="email-footer"
+              required
+              placeholder="you@domain.com"
+              autocomplete="email"
+              aria-label="Email address"
+            />
+            <button type="submit">RUN</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>e-acc.ai</span>
+      <span aria-hidden="true">·</span>
+      <span>an instrument panel for the acceleration</span>
+      <span aria-hidden="true">·</span>
+      <a href="mailto:hello@e-acc.ai">hello@e-acc.ai</a>
+    </footer>
+  </body>
+</html>

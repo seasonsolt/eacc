@@ -1,0 +1,59 @@
+{
+  "_readme": "Dashboard metrics. price_series tracks the cheapest API model matching or beating original GPT-4 (March 2023) on standard benchmarks — usd_per_mtok is INPUT price per million tokens. token_rate feeds the altar counter. Update weekly, then git push to deploy.",
+  "updated": "2026-07-04",
+  "token_rate": {
+    "tokens_per_second": 2000000000,
+    "as_of": "2026-07",
+    "note": "Conservative industry-wide estimate. Google alone disclosed 3.2 quadrillion tokens/month (~1.2B tok/s) at I/O 2026, up 7x YoY; this figure extrapolates across all providers.",
+    "source_url": "https://blog.google/innovation-and-ai/sundar-pichai-io-2026/"
+  },
+  "price_series": {
+    "label": "Price of GPT-4-class intelligence, USD per million input tokens",
+    "points": [
+      {
+        "date": "2023-03",
+        "usd_per_mtok": 30.0,
+        "model": "GPT-4"
+      },
+      {
+        "date": "2023-11",
+        "usd_per_mtok": 10.0,
+        "model": "GPT-4 Turbo"
+      },
+      {
+        "date": "2024-05",
+        "usd_per_mtok": 5.0,
+        "model": "GPT-4o"
+      },
+      {
+        "date": "2024-07",
+        "usd_per_mtok": 0.15,
+        "model": "GPT-4o mini"
+      },
+      {
+        "date": "2024-12",
+        "usd_per_mtok": 0.14,
+        "model": "DeepSeek-V3 (launch promo)"
+      },
+      {
+        "date": "2025-02",
+        "usd_per_mtok": 0.1,
+        "model": "Gemini 2.0 Flash"
+      },
+      {
+        "date": "2025-03",
+        "usd_per_mtok": 0.075,
+        "model": "Gemini 2.0 Flash-Lite"
+      },
+      {
+        "date": "2025-08",
+        "usd_per_mtok": 0.05,
+        "model": "GPT-5 nano"
+      }
+    ]
+  },
+  "headline": {
+    "price_note": "GPT-4-class intelligence: $30.00 -> $0.05 per Mtok",
+    "price_factor": "600x cheaper in 29 months"
+  }
+}
