@@ -1,0 +1,3 @@
+# Cloudflare Pages configuration — the dashboard reads build output from here.
+name = "eacc"
+pages_build_output_dir = "site"
