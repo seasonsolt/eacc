@@ -40,6 +40,7 @@ export function layout({ slug, title, description, h1Cmd, h1Text, jsonLd, body, 
     <link rel="preload" href="${base}fonts/vt323.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="${base}fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="${base}styles.css" />
+    <link rel="alternate" type="application/rss+xml" title="e/acc — the acceleration log" href="${base}feed.xml" />
 ${jsonLdBlocks}
 ${headExtra}  </head>
   <body>
@@ -54,6 +55,7 @@ ${headExtra}  </head>
         <a href="${base}timeline">timeline</a>
         <a href="${base}pricing">pricing</a>
         <a href="${base}calculator">calculator</a>
+        <a href="${base}api">api</a>
       </nav>
     </header>
 
@@ -111,6 +113,8 @@ ${body}
       <a href="${base}pricing">LLM pricing</a>
       <span aria-hidden="true">·</span>
       <a href="${base}calculator">token calculator</a>
+      <span aria-hidden="true">·</span>
+      <a href="${base}api">API &amp; RSS</a>
       <span aria-hidden="true">·</span>
       <a href="mailto:hello@e-acc.ai">hello@e-acc.ai</a>
     </footer>

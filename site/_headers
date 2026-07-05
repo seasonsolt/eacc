@@ -1,0 +1,4 @@
+# Cloudflare Pages headers. The JSON API must be fetchable cross-origin.
+/api/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600

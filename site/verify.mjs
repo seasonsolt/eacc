@@ -99,13 +99,15 @@ try {
 const pageFiles = readdirSync(root, { recursive: true })
   .map(String)
   .filter((f) => f.endsWith(".html"))
-  .map((f) => f.split("\\").join("/"));
+  .map((f) => f.split("\\").join("/"))
+  .filter((f) => !/^google[0-9a-f]+\.html$/.test(f)); // GSC verification token, not a page
 const pages = new Map(pageFiles.map((f) => [f, read(f)]));
 const keywordFor = (file) => {
   if (file === "index.html" || file === "what-is-eacc.html") return "e/acc";
   if (file === "timeline.html") return "timeline";
   if (file === "calculator.html") return "calculator";
   if (file === "pricing.html" || file.startsWith("pricing/")) return "pricing";
+  if (file === "api.html") return "api";
   return null;
 };
 
@@ -242,6 +244,65 @@ for (const [file, html] of pages) {
   }
 }
 if (placeholderSeen) warn("forms: Buttondown username is still the placeholder — set it before launch");
+
+// ── 6. RSS feed (eacc#2) ─────────────────────────────────────────────────
+try {
+  const feed = read("feed.xml");
+  const timeline = JSON.parse(read("data/timeline.json"));
+  const items = feed.match(/<item>/g) || [];
+  if (items.length !== timeline.events.length) {
+    fail(`feed.xml: ${items.length} items but ${timeline.events.length} events`);
+  }
+  if ((feed.match(/<\/item>/g) || []).length !== items.length) fail("feed.xml: unbalanced <item> tags");
+  const guids = [...feed.matchAll(/<guid[^>]*>([^<]+)<\/guid>/g)].map((m) => m[1]);
+  if (guids.length !== items.length) fail("feed.xml: every item needs a guid");
+  if (new Set(guids).size !== guids.length) fail("feed.xml: guids must be unique");
+  if (!feed.includes("<title>") || !feed.includes('<rss version="2.0"')) {
+    fail("feed.xml: missing rss/channel skeleton");
+  }
+  const raw = feed.replace(/<!\[CDATA\[[\s\S]*?\]\]>/g, "");
+  if (/&(?!amp;|lt;|gt;|quot;|apos;|#\d+;)/.test(raw)) fail("feed.xml: unescaped ampersand");
+  ok(`feed.xml: ${items.length} items, guids unique`);
+} catch (err) {
+  fail(`feed.xml: ${err.message}`);
+}
+
+// autodiscovery + footer link on every page
+for (const [file, html] of pages) {
+  if (!html.includes('type="application/rss+xml"')) fail(`${file}: missing RSS autodiscovery <link>`);
+}
+
+// ── 7. JSON API endpoints (eacc#3) ───────────────────────────────────────
+try {
+  const api = JSON.parse(read("api/timeline.json"));
+  if (api.version !== 1) fail("api/timeline.json: version must be 1");
+  if (!api.updated || !Array.isArray(api.events) || api.events.length === 0) {
+    fail("api/timeline.json: needs updated + non-empty events");
+  }
+  const latest = JSON.parse(read("api/latest-frontier.json"));
+  if (latest.version !== 1 || !latest.event) fail("api/latest-frontier.json: needs version + event");
+  const timeline = JSON.parse(read("data/timeline.json"));
+  const newestFrontier = [...timeline.events]
+    .filter((e) => e.frontier)
+    .sort((a, b) => b.date.localeCompare(a.date))[0];
+  if (latest.event.date !== newestFrontier.date || latest.event.title !== newestFrontier.title) {
+    fail("api/latest-frontier.json: does not match the newest frontier event");
+  }
+  ok("api: timeline + latest-frontier endpoints match the data");
+} catch (err) {
+  fail(`api endpoints: ${err.message}`);
+}
+
+try {
+  const headers = read("_headers");
+  if (!/\/api\/\*[\s\S]*Access-Control-Allow-Origin: \*/.test(headers)) {
+    fail("_headers: /api/* must send Access-Control-Allow-Origin: *");
+  } else {
+    ok("_headers: CORS rule for /api/* present");
+  }
+} catch (err) {
+  fail(`_headers: ${err.message}`);
+}
 
 // ── result ───────────────────────────────────────────────────────────────
 console.log(

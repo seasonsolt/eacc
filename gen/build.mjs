@@ -10,8 +10,9 @@ import whatIsEacc from "./pages/what-is-eacc.mjs";
 import timeline from "./pages/timeline.mjs";
 import calculator from "./pages/calculator.mjs";
 import pricing from "./pages/pricing.mjs";
+import api from "./pages/api.mjs";
 
-const pages = [whatIsEacc, timeline, calculator, ...pricing];
+const pages = [whatIsEacc, timeline, calculator, ...pricing, api];
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const siteDir = join(root, "site");
 const SITE = "https://e-acc.ai";
@@ -23,6 +24,58 @@ for (const page of pages) {
   writeFileSync(outPath, html);
   console.log(`  built ${page.slug}.html (${html.length} bytes)`);
 }
+
+// ── RSS feed + JSON API endpoints (eacc#2, eacc#3) ───────────────────────
+const timelineData = JSON.parse(readFileSync(join(siteDir, "data", "timeline.json"), "utf8"));
+const sortedEvents = [...timelineData.events].sort((a, b) => b.date.localeCompare(a.date));
+const escXml = (s) =>
+  String(s).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
+const rfc822 = (ymd) => new Date(`${ymd}T00:00:00Z`).toUTCString();
+const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+const rssItems = sortedEvents
+  .map(
+    (e) => `    <item>
+      <title>${escXml(e.frontier ? `[frontier] ${e.title}` : e.title)}</title>
+      <link>${escXml(e.source_url)}</link>
+      <guid isPermaLink="false">e-acc.ai:${e.date}:${slugify(e.title)}</guid>
+      <pubDate>${rfc822(e.date)}</pubDate>
+      <description>${escXml(e.detail)}</description>
+      <category>${e.type}</category>
+    </item>`
+  )
+  .join("\n");
+
+const feed = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>e/acc — the acceleration log</title>
+    <link>${SITE}/timeline</link>
+    <description>Frontier model releases, compute buildouts and culture moments — the AI acceleration, dated and sourced. Updated weekly by e-acc.ai.</description>
+    <language>en</language>
+    <lastBuildDate>${rfc822(timelineData.updated)}</lastBuildDate>
+    <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml" />
+${rssItems}
+  </channel>
+</rss>
+`;
+writeFileSync(join(siteDir, "feed.xml"), feed);
+console.log(`  built feed.xml (${sortedEvents.length} items)`);
+
+mkdirSync(join(siteDir, "api"), { recursive: true });
+const apiEnvelope = {
+  version: 1,
+  updated: timelineData.updated,
+  docs: `${SITE}/api`,
+  events: sortedEvents,
+};
+writeFileSync(join(siteDir, "api", "timeline.json"), JSON.stringify(apiEnvelope, null, 2) + "\n");
+const latestFrontier = sortedEvents.find((e) => e.frontier);
+writeFileSync(
+  join(siteDir, "api", "latest-frontier.json"),
+  JSON.stringify({ version: 1, updated: timelineData.updated, docs: `${SITE}/api`, event: latestFrontier }, null, 2) + "\n"
+);
+console.log("  built api/timeline.json + api/latest-frontier.json");
 
 // sitemap covers the homepage plus every generated page; lastmod tracks the
 // newest of the two data files so weekly data pushes refresh it automatically

@@ -1,0 +1,131 @@
+{
+  "version": 1,
+  "updated": "2026-07-04",
+  "docs": "https://e-acc.ai/api",
+  "events": [
+    {
+      "date": "2026-06-09",
+      "type": "model",
+      "frontier": true,
+      "title": "Claude Fable 5 ships",
+      "detail": "Anthropic opens the Claude 5 family: always-on adaptive thinking and a 1M-token context window.",
+      "source_url": "https://www.anthropic.com/news/claude-fable-5-mythos-5"
+    },
+    {
+      "date": "2026-04-23",
+      "type": "model",
+      "frontier": true,
+      "title": "GPT-5.5 ships",
+      "detail": "OpenAI's flagship update lands in ChatGPT and Codex; API access follows a day later.",
+      "source_url": "https://openai.com/index/introducing-gpt-5-5/"
+    },
+    {
+      "date": "2025-11-24",
+      "type": "model",
+      "frontier": true,
+      "title": "Claude Opus 4.5 ships",
+      "detail": "Anthropic's strongest coding model to date lands days after Gemini 3 — the frontier cadence compresses to weeks.",
+      "source_url": "https://www.anthropic.com/news/claude-opus-4-5"
+    },
+    {
+      "date": "2025-11-18",
+      "type": "model",
+      "frontier": true,
+      "title": "Gemini 3 ships",
+      "detail": "Google's frontier line jumps again; agentic coding and long-horizon tasks improve another step.",
+      "source_url": "https://blog.google/products-and-platforms/products/gemini/gemini-3/"
+    },
+    {
+      "date": "2025-11-12",
+      "type": "model",
+      "frontier": true,
+      "title": "GPT-5.1 ships",
+      "detail": "OpenAI iterates the GPT-5 line with adaptive reasoning effort and faster default paths.",
+      "source_url": "https://openai.com/index/gpt-5-1/"
+    },
+    {
+      "date": "2025-08-07",
+      "type": "model",
+      "frontier": true,
+      "title": "GPT-5 ships",
+      "detail": "OpenAI unifies reasoning and fast paths behind one router; frontier access goes mass-market.",
+      "source_url": "https://openai.com/index/introducing-gpt-5/"
+    },
+    {
+      "date": "2025-05-22",
+      "type": "model",
+      "frontier": true,
+      "title": "Claude 4 ships",
+      "detail": "Anthropic's Opus 4 and Sonnet 4 push sustained autonomous coding into production use.",
+      "source_url": "https://www.anthropic.com/news/claude-4"
+    },
+    {
+      "date": "2025-01-21",
+      "type": "compute",
+      "title": "Stargate announced: $500B",
+      "detail": "SoftBank, OpenAI, Oracle and MGX commit $500B over four years — $100B deploying immediately — for US AI datacenters.",
+      "source_url": "https://openai.com/index/announcing-the-stargate-project/"
+    },
+    {
+      "date": "2025-01-20",
+      "type": "model",
+      "frontier": true,
+      "title": "DeepSeek-R1 open weights",
+      "detail": "Frontier-class reasoning released under MIT license at a fraction of incumbent training cost.",
+      "source_url": "https://github.com/deepseek-ai/DeepSeek-R1"
+    },
+    {
+      "date": "2024-09-12",
+      "type": "model",
+      "frontier": true,
+      "title": "OpenAI o1: the reasoning era",
+      "detail": "Test-time compute becomes the new scaling axis — models that think before they answer.",
+      "source_url": "https://openai.com/index/learning-to-reason-with-llms/"
+    },
+    {
+      "date": "2024-05-13",
+      "type": "model",
+      "frontier": true,
+      "title": "GPT-4o: omni goes realtime",
+      "detail": "Native audio-vision-text at half the price of GPT-4 Turbo. Frontier intelligence keeps getting cheaper.",
+      "source_url": "https://openai.com/index/hello-gpt-4o/"
+    },
+    {
+      "date": "2024-03-04",
+      "type": "model",
+      "frontier": true,
+      "title": "Claude 3 ships",
+      "detail": "Opus matches GPT-4; for the first time the frontier is contested by more than one lab.",
+      "source_url": "https://www.anthropic.com/news/claude-3-family"
+    },
+    {
+      "date": "2023-10-16",
+      "type": "culture",
+      "title": "The Techno-Optimist Manifesto",
+      "detail": "Marc Andreessen publishes the manifesto; e/acc ideas enter mainstream venture discourse.",
+      "source_url": "https://a16z.com/the-techno-optimist-manifesto/"
+    },
+    {
+      "date": "2023-03-14",
+      "type": "model",
+      "frontier": true,
+      "title": "GPT-4 ships",
+      "detail": "The capability jump that reset every timeline. $30 per million input tokens at launch.",
+      "source_url": "https://openai.com/index/gpt-4-research/"
+    },
+    {
+      "date": "2022-11-30",
+      "type": "model",
+      "title": "ChatGPT launches",
+      "detail": "100M users in two months. The acceleration becomes visible to everyone.",
+      "source_url": "https://openai.com/index/chatgpt/"
+    },
+    {
+      "date": "2022-05-31",
+      "type": "culture",
+      "title": "e/acc is born",
+      "detail": "A pseudonymous newsletter by @zestular, @BasedBeffJezos, @bayeslord and co. names the movement: build, accelerate, ascend the Kardashev gradient.",
+      "source_url": "https://effectiveaccelerationism.substack.com/p/repost-effective-accelerationism"
+    }
+  ]
+}

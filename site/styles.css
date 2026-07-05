@@ -689,3 +689,20 @@ a.statusbar-host {
   }
 }
 echo done
+/* ── code blocks (api docs) ───────────────────────────────────────────── */
+.code-block {
+  background: var(--bg-input);
+  border: 1px solid var(--phosphor-faint);
+  border-left: 3px solid var(--phosphor-dim);
+  border-radius: var(--radius);
+  padding: var(--space-2);
+  overflow-x: auto;
+  font-size: var(--fs-small);
+  color: var(--phosphor-bright);
+  max-width: 100%;
+}
+.prose code,
+.readme code {
+  color: var(--amber);
+  word-break: break-word;
+}

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>e/acc — the acceleration log</title>
+    <link>https://e-acc.ai/timeline</link>
+    <description>Frontier model releases, compute buildouts and culture moments — the AI acceleration, dated and sourced. Updated weekly by e-acc.ai.</description>
+    <language>en</language>
+    <lastBuildDate>Sat, 04 Jul 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://e-acc.ai/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[frontier] Claude Fable 5 ships</title>
+      <link>https://www.anthropic.com/news/claude-fable-5-mythos-5</link>
+      <guid isPermaLink="false">e-acc.ai:2026-06-09:claude-fable-5-ships</guid>
+      <pubDate>Tue, 09 Jun 2026 00:00:00 GMT</pubDate>
+      <description>Anthropic opens the Claude 5 family: always-on adaptive thinking and a 1M-token context window.</description>
+      <category>model</category>
+    </item>
+    <item>
+      <title>[frontier] GPT-5.5 ships</title>
+      <link>https://openai.com/index/introducing-gpt-5-5/</link>
+      <guid isPermaLink="false">e-acc.ai:2026-04-23:gpt-5-5-ships</guid>
+      <pubDate>Thu, 23 Apr 2026 00:00:00 GMT</pubDate>
+      <description>OpenAI's flagship update lands in ChatGPT and Codex; API access follows a day later.</description>
+      <category>model</category>
+    </item>
+    <item>
+      <title>[frontier] Claude Opus 4.5 ships</title>
+      <link>https://www.anthropic.com/news/claude-opus-4-5</link>
+      <guid isPermaLink="false">e-acc.ai:2025-11-24:claude-opus-4-5-ships</guid>
+      <pubDate>Mon, 24 Nov 2025 00:00:00 GMT</pubDate>
+      <description>Anthropic's strongest coding model to date lands days after Gemini 3 — the frontier cadence compresses to weeks.</description>
+      <category>model</category>
+    </item>
+    <item>
+      <title>[frontier] Gemini 3 ships</title>
+      <link>https://blog.google/products-and-platforms/products/gemini/gemini-3/</link>
+      <guid isPermaLink="false">e-acc.ai:2025-11-18:gemini-3-ships</guid>
+      <pubDate>Tue, 18 Nov 2025 00:00:00 GMT</pubDate>
+      <description>Google's frontier line jumps again; agentic coding and long-horizon tasks improve another step.</description>
+      <category>model</category>
+    </item>
+    <item>
+      <title>[frontier] GPT-5.1 ships</title>
+      <link>https://openai.com/index/gpt-5-1/</link>
+      <guid isPermaLink="false">e-acc.ai:2025-11-12:gpt-5-1-ships</guid>
+      <pubDate>Wed, 12 Nov 2025 00:00:00 GMT</pubDate>
+      <description>OpenAI iterates the GPT-5 line with adaptive reasoning effort and faster default paths.</description>
+      <category>model</category>
+    </item>
+    <item>
+      <title>[frontier] GPT-5 ships</title>
+      <link>https://openai.com/index/introducing-gpt-5/</link>
+      <guid isPermaLink="false">e-acc.ai:2025-08-07:gpt-5-ships</guid>
+      <pubDate>Thu, 07 Aug 2025 00:00:00 GMT</pubDate>
+      <description>OpenAI unifies reasoning and fast paths behind one router; frontier access goes mass-market.</description>
+      <category>model</category>
+    </item>
+    <item>
+      <title>[frontier] Claude 4 ships</title>
+      <link>https://www.anthropic.com/news/claude-4</link>
+      <guid isPermaLink="false">e-acc.ai:2025-05-22:claude-4-ships</guid>
+      <pubDate>Thu, 22 May 2025 00:00:00 GMT</pubDate>
+      <description>Anthropic's Opus 4 and Sonnet 4 push sustained autonomous coding into production use.</description>
+      <category>model</category>
+    </item>
+    <item>
+      <title>Stargate announced: $500B</title>
+      <link>https://openai.com/index/announcing-the-stargate-project/</link>
+      <guid isPermaLink="false">e-acc.ai:2025-01-21:stargate-announced-500b</guid>
+      <pubDate>Tue, 21 Jan 2025 00:00:00 GMT</pubDate>
+      <description>SoftBank, OpenAI, Oracle and MGX commit $500B over four years — $100B deploying immediately — for US AI datacenters.</description>
+      <category>compute</category>
+    </item>
+    <item>
+      <title>[frontier] DeepSeek-R1 open weights</title>
+      <link>https://github.com/deepseek-ai/DeepSeek-R1</link>
+      <guid isPermaLink="false">e-acc.ai:2025-01-20:deepseek-r1-open-weights</guid>
+      <pubDate>Mon, 20 Jan 2025 00:00:00 GMT</pubDate>
+      <description>Frontier-class reasoning released under MIT license at a fraction of incumbent training cost.</description>
+      <category>model</category>
+    </item>
+    <item>
+      <title>[frontier] OpenAI o1: the reasoning era</title>
+      <link>https://openai.com/index/learning-to-reason-with-llms/</link>
+      <guid isPermaLink="false">e-acc.ai:2024-09-12:openai-o1-the-reasoning-era</guid>
+      <pubDate>Thu, 12 Sep 2024 00:00:00 GMT</pubDate>
+      <description>Test-time compute becomes the new scaling axis — models that think before they answer.</description>
+      <category>model</category>
+    </item>
+    <item>
+      <title>[frontier] GPT-4o: omni goes realtime</title>
+      <link>https://openai.com/index/hello-gpt-4o/</link>
+      <guid isPermaLink="false">e-acc.ai:2024-05-13:gpt-4o-omni-goes-realtime</guid>
+      <pubDate>Mon, 13 May 2024 00:00:00 GMT</pubDate>
+      <description>Native audio-vision-text at half the price of GPT-4 Turbo. Frontier intelligence keeps getting cheaper.</description>
+      <category>model</category>
+    </item>
+    <item>
+      <title>[frontier] Claude 3 ships</title>
+      <link>https://www.anthropic.com/news/claude-3-family</link>
+      <guid isPermaLink="false">e-acc.ai:2024-03-04:claude-3-ships</guid>
+      <pubDate>Mon, 04 Mar 2024 00:00:00 GMT</pubDate>
+      <description>Opus matches GPT-4; for the first time the frontier is contested by more than one lab.</description>
+      <category>model</category>
+    </item>
+    <item>
+      <title>The Techno-Optimist Manifesto</title>
+      <link>https://a16z.com/the-techno-optimist-manifesto/</link>
+      <guid isPermaLink="false">e-acc.ai:2023-10-16:the-techno-optimist-manifesto</guid>
+      <pubDate>Mon, 16 Oct 2023 00:00:00 GMT</pubDate>
+      <description>Marc Andreessen publishes the manifesto; e/acc ideas enter mainstream venture discourse.</description>
+      <category>culture</category>
+    </item>
+    <item>
+      <title>[frontier] GPT-4 ships</title>
+      <link>https://openai.com/index/gpt-4-research/</link>
+      <guid isPermaLink="false">e-acc.ai:2023-03-14:gpt-4-ships</guid>
+      <pubDate>Tue, 14 Mar 2023 00:00:00 GMT</pubDate>
+      <description>The capability jump that reset every timeline. $30 per million input tokens at launch.</description>
+      <category>model</category>
+    </item>
+    <item>
+      <title>ChatGPT launches</title>
+      <link>https://openai.com/index/chatgpt/</link>
+      <guid isPermaLink="false">e-acc.ai:2022-11-30:chatgpt-launches</guid>
+      <pubDate>Wed, 30 Nov 2022 00:00:00 GMT</pubDate>
+      <description>100M users in two months. The acceleration becomes visible to everyone.</description>
+      <category>model</category>
+    </item>
+    <item>
+      <title>e/acc is born</title>
+      <link>https://effectiveaccelerationism.substack.com/p/repost-effective-accelerationism</link>
+      <guid isPermaLink="false">e-acc.ai:2022-05-31:e-acc-is-born</guid>
+      <pubDate>Tue, 31 May 2022 00:00:00 GMT</pubDate>
+      <description>A pseudonymous newsletter by @zestular, @BasedBeffJezos, @bayeslord and co. names the movement: build, accelerate, ascend the Kardashev gradient.</description>
+      <category>culture</category>
+    </item>
+  </channel>
+</rss>
