@@ -84,7 +84,7 @@ ${body}
         </p>
         <form
           class="subscribe-main"
-          action="https://buttondown.com/api/emails/embed-subscribe/REPLACE_WITH_BUTTONDOWN_USERNAME"
+          action="https://buttondown.com/api/emails/embed-subscribe/SAC-1988"
           method="post"
           target="_blank"
         >
