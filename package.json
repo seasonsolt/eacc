@@ -5,7 +5,8 @@
   "scripts": {
     "build": "node gen/build.mjs",
     "verify": "node site/verify.mjs",
-    "test": "node --test test/tokenmath.test.mjs"
+    "test": "node --test test/tokenmath.test.mjs",
+    "indexnow": "node gen/indexnow.mjs"
   },
   "private": true
 }
