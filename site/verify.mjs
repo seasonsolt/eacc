@@ -70,8 +70,39 @@ try {
   fail(`metrics.json: ${err.message}`);
 }
 
-// ── 2. internal anchors ──────────────────────────────────────────────────
+// ── 2. on-page SEO invariants ────────────────────────────────────────────
 const html = read("index.html");
+
+const title = (html.match(/<title>([^<]*)<\/title>/) || [])[1] || "";
+if (!title.toLowerCase().includes("e/acc")) fail(`title: missing "e/acc" keyword ("${title}")`);
+if (title.length < 40 || title.length > 65) {
+  warn(`title: ${title.length} chars — target 50-60 ("${title}")`);
+}
+
+const h1 = (html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/) || [])[1] || "";
+const h1Text = h1.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+if (!h1Text.toLowerCase().includes("e/acc")) fail(`h1: missing "e/acc" keyword ("${h1Text}")`);
+if ((html.match(/<h1[\s>]/g) || []).length !== 1) fail("h1: page must have exactly one h1");
+
+if (html.includes('class="visually-hidden"')) {
+  fail("headings: visually-hidden keyword pattern is banned — use visible .panel-name text");
+}
+
+const ogImage = (html.match(/property="og:image" content="([^"]+)"/) || [])[1];
+if (!ogImage) {
+  fail("og: missing og:image meta");
+} else {
+  const ogFile = ogImage.replace("https://e-acc.ai/", "");
+  try {
+    readFileSync(join(root, ogFile));
+    ok(`og: ${ogFile} present`);
+  } catch {
+    fail(`og: og:image points at ${ogFile} but the file does not exist`);
+  }
+}
+ok(`on-page: title ${title.length} chars, h1 carries the keyword`);
+
+// ── 3. internal anchors ──────────────────────────────────────────────────
 const ids = new Set([...html.matchAll(/id="([^"]+)"/g)].map((m) => m[1]));
 for (const [, anchor] of html.matchAll(/href="#([^"]+)"/g)) {
   if (!ids.has(anchor)) fail(`anchor: href="#${anchor}" has no matching id`);

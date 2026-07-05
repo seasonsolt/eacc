@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>e/acc — the acceleration tracker</title>
+    <title>e/acc — live tracker of the AI acceleration | e-acc.ai</title>
     <meta
       name="description"
       content="Live tracker of the AI acceleration: token throughput, the collapsing price of intelligence, frontier model timeline, and what e/acc (effective accelerationism) actually is. One email a week: what accelerated."
@@ -11,12 +11,15 @@
     <link rel="canonical" href="https://e-acc.ai/" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://e-acc.ai/" />
-    <meta property="og:title" content="e/acc — the acceleration tracker" />
+    <meta property="og:title" content="e/acc — live tracker of the AI acceleration" />
     <meta
       property="og:description"
       content="the altar is fed by tokens. Live counter, price-of-intelligence chart, frontier timeline, weekly letter."
     />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content="https://e-acc.ai/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="preload" href="./fonts/vt323.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="./fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="./styles.css" />
@@ -55,7 +58,10 @@
           <span>[ .. ] decel signals ignored</span>
         </div>
 
-        <h1 id="tagline" class="tagline">the altar is fed by tokens</h1>
+        <h1 id="tagline" class="tagline">
+          <span class="tagline-term">e/acc —</span>
+          the altar is fed by tokens
+        </h1>
 
         <div class="altar" role="group" aria-labelledby="altar-label">
           <p id="altar-label" class="altar-label">
@@ -112,7 +118,7 @@
       <section class="panel" id="log" aria-labelledby="log-title">
         <h2 class="panel-title" id="log-title">
           <span class="panel-cmd" aria-hidden="true">$ tail -f /var/log/acceleration</span>
-          <span class="visually-hidden">Acceleration log</span>
+          <span class="panel-name">The AI acceleration log — frontier model releases</span>
         </h2>
         <div class="metrics-strip" id="metrics-strip">
           <div class="metric">
@@ -140,7 +146,7 @@
       <section class="panel" id="price" aria-labelledby="price-title">
         <h2 class="panel-title" id="price-title">
           <span class="panel-cmd" aria-hidden="true">$ plot intelligence-price --log</span>
-          <span class="visually-hidden">The collapsing price of intelligence</span>
+          <span class="panel-name">The collapsing price of LLM intelligence</span>
         </h2>
         <p class="panel-lead">
           What GPT-4 charged in March 2023 versus the cheapest model of equal capability today. Log scale —
@@ -160,8 +166,8 @@
       <!-- ── WHAT IS e/acc ─────────────────────────────────────────────── -->
       <section class="panel" id="manifesto" aria-labelledby="manifesto-title">
         <h2 class="panel-title" id="manifesto-title">
-          <span class="panel-cmd" aria-hidden="true">$ cat /etc/eacc/README</span>
-          <span class="visually-hidden">What is e/acc</span>
+          <span class="panel-cmd" aria-hidden="true">$ cat what-is-eacc.md</span>
+          <span class="panel-name">What is e/acc — effective accelerationism, explained</span>
         </h2>
         <div class="readme">
           <p>
@@ -191,7 +197,7 @@
       <section class="panel panel-cta" id="subscribe" aria-labelledby="subscribe-title">
         <h2 class="panel-title" id="subscribe-title">
           <span class="panel-cmd" aria-hidden="true">&gt; subscribe --weekly</span>
-          <span class="visually-hidden">Subscribe</span>
+          <span class="panel-name">The weekly e/acc newsletter</span>
         </h2>
         <p class="cta-lead">One email a week: what accelerated.</p>
         <p class="cta-sub">

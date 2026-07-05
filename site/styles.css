@@ -192,6 +192,15 @@ main {
   max-width: 14ch;
   margin-bottom: var(--space-3);
 }
+/* the movement's name rides above the aphorism — keyword and brand in one H1 */
+.tagline-term {
+  display: block;
+  font-size: 0.35em;
+  color: var(--amber);
+  text-shadow: var(--glow-amber);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.35rem;
+}
 
 /* the altar counter — the one thing this page is remembered by */
 .altar {
@@ -320,6 +329,14 @@ main {
   content: "▮";
   margin-left: 0.35rem;
   color: var(--phosphor);
+}
+/* visible section name under the command line — real headings, no hidden text */
+.panel-name {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--text);
 }
 .panel-lead {
   max-width: var(--measure);

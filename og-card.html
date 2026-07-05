@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face {
+    font-family: "VT323";
+    src: url("file:///Users/Thin/Source/git/seasonsolt/e-acc.ai/atb/site/fonts/vt323.woff2") format("woff2");
+  }
+  @font-face {
+    font-family: "JetBrains Mono";
+    src: url("file:///Users/Thin/Source/git/seasonsolt/e-acc.ai/atb/site/fonts/jetbrains-mono-var.woff2") format("woff2");
+    font-weight: 100 800;
+  }
+  * { margin: 0; box-sizing: border-box; }
+  body {
+    width: 1200px;
+    height: 630px;
+    background: #030806;
+    background-image: radial-gradient(ellipse 120% 100% at 50% -20%, #0a1f12 0%, #030806 60%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 90px;
+    position: relative;
+    overflow: hidden;
+    font-family: "JetBrains Mono", monospace;
+  }
+  /* scanlines */
+  body::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0.22) 0 2px, transparent 2px 5px);
+    pointer-events: none;
+  }
+  .term {
+    font-family: "VT323", monospace;
+    font-size: 54px;
+    color: #ffb347;
+    text-shadow: 0 0 14px rgba(255,179,71,0.5);
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .tagline {
+    font-family: "VT323", monospace;
+    font-size: 128px;
+    line-height: 0.95;
+    color: #33ff66;
+    text-shadow: 0 0 18px rgba(51,255,102,0.55), 0 0 70px rgba(51,255,102,0.18);
+    max-width: 14ch;
+  }
+  .sub {
+    margin-top: 42px;
+    font-size: 26px;
+    color: #7da68a;
+  }
+  .sub strong { color: #c2dfc9; font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="term">e/acc —</div>
+  <div class="tagline">the altar is fed by tokens</div>
+  <div class="sub"><strong>e-acc.ai</strong> · live tracker of the AI acceleration</div>
+</body>
+</html>
