@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Token Cost Calculator — Price Any Prompt | e-acc.ai</title>
+    <meta name="description" content="Free token cost calculator: paste a prompt, get the API cost across GPT-5.5, Claude 5, Gemini 3 and DeepSeek — ranked cheapest first. No login, prices verified weekly." />
+    <link rel="canonical" href="https://e-acc.ai/calculator" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://e-acc.ai/calculator" />
+    <meta property="og:title" content="AI Token Cost Calculator — Price Any Prompt | e-acc.ai" />
+    <meta property="og:description" content="Free token cost calculator: paste a prompt, get the API cost across GPT-5.5, Claude 5, Gemini 3 and DeepSeek — ranked cheapest first. No login, prices verified weekly." />
+    <meta property="og:image" content="https://e-acc.ai/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="./fonts/vt323.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="./styles.css" />
+
+  </head>
+  <body>
+    <div class="crt" aria-hidden="true"></div>
+
+    <header class="statusbar">
+      <a class="statusbar-host" href="./">e-acc.ai</a>
+      <span class="statusbar-sep" aria-hidden="true">─</span>
+      <span class="statusbar-tty" aria-hidden="true">tty1</span>
+      <nav class="statusbar-nav" aria-label="Sections">
+        <a href="./what-is-eacc">e/acc?</a>
+        <a href="./timeline">timeline</a>
+        <a href="./calculator">calculator</a>
+        <a href="./#subscribe">subscribe</a>
+      </nav>
+    </header>
+
+    <main>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="./">~</a> <span aria-hidden="true">/</span> <span>calculator</span>
+      </nav>
+
+      <section class="panel page-panel">
+        <h1 class="panel-title page-h1">
+          <span class="panel-cmd" aria-hidden="true">$ eacc calc --tokens --usd</span>
+          <span class="panel-name">AI token cost calculator — price any prompt across every major model</span>
+        </h1>
+
+        <p class="panel-lead">
+          Paste text or type a word count, set an expected reply length, and get the API cost
+          for every tracked model — ranked cheapest first. Estimates use the standard English
+          heuristics (~0.75 words or ~4 characters per token). Prices are standard-tier USD per
+          million tokens, verified 2026-07-05; see also
+          <a href="./timeline">what shipped when</a> and
+          <a href="./what-is-eacc">why this site exists</a>.
+        </p>
+
+        <div class="calc" id="calc">
+          <label class="prompt-label" for="calc-text">&gt; estimate --input</label>
+          <textarea
+            id="calc-text"
+            rows="5"
+            placeholder="paste your prompt here — or leave empty and use the word count below"
+          ></textarea>
+
+          <div class="calc-row">
+            <label for="calc-words">input words</label>
+            <input type="number" id="calc-words" min="0" step="100" value="1000" />
+            <label for="calc-output">expected output tokens</label>
+            <input type="number" id="calc-output" min="0" step="100" value="500" />
+          </div>
+
+          <p class="calc-verdict" id="calc-verdict" aria-live="polite"></p>
+
+          <table class="calc-table" id="calc-table">
+            <thead>
+              <tr>
+                <th scope="col">model</th>
+                <th scope="col">provider</th>
+                <th scope="col">input $/Mtok</th>
+                <th scope="col">output $/Mtok</th>
+                <th scope="col">this request</th>
+              </tr>
+            </thead>
+            <tbody><!-- rendered by calculator.js --></tbody>
+          </table>
+          <p class="chart-caption">
+            Registry updated 2026-07-05. Cache discounts, batch tiers and promos not
+            included — this is the standard pay-as-you-go rate.
+          </p>
+        </div>
+
+        <script type="application/json" id="models-data">
+[
+  {
+    "slug": "gpt-5-5",
+    "name": "GPT-5.5",
+    "provider": "OpenAI",
+    "input_usd_per_mtok": 5,
+    "output_usd_per_mtok": 30,
+    "source_url": "https://developers.openai.com/api/docs/pricing"
+  },
+  {
+    "slug": "gpt-5-6-luna",
+    "name": "GPT-5.6 Luna",
+    "provider": "OpenAI",
+    "input_usd_per_mtok": 1,
+    "output_usd_per_mtok": 6,
+    "source_url": "https://developers.openai.com/api/docs/pricing"
+  },
+  {
+    "slug": "gpt-5-4-nano",
+    "name": "GPT-5.4 nano",
+    "provider": "OpenAI",
+    "input_usd_per_mtok": 0.2,
+    "output_usd_per_mtok": 1.25,
+    "source_url": "https://developers.openai.com/api/docs/pricing"
+  },
+  {
+    "slug": "claude-fable-5",
+    "name": "Claude Fable 5",
+    "provider": "Anthropic",
+    "input_usd_per_mtok": 10,
+    "output_usd_per_mtok": 50,
+    "source_url": "https://platform.claude.com/docs/en/about-claude/pricing"
+  },
+  {
+    "slug": "claude-opus-4-8",
+    "name": "Claude Opus 4.8",
+    "provider": "Anthropic",
+    "input_usd_per_mtok": 5,
+    "output_usd_per_mtok": 25,
+    "source_url": "https://platform.claude.com/docs/en/about-claude/pricing"
+  },
+  {
+    "slug": "claude-sonnet-5",
+    "name": "Claude Sonnet 5",
+    "provider": "Anthropic",
+    "input_usd_per_mtok": 2,
+    "output_usd_per_mtok": 10,
+    "note": "Introductory pricing through 2026-08-31; standard tier is $3 / $15.",
+    "source_url": "https://platform.claude.com/docs/en/about-claude/pricing"
+  },
+  {
+    "slug": "gemini-3-flash",
+    "name": "Gemini 3 Flash",
+    "provider": "Google",
+    "input_usd_per_mtok": 0.5,
+    "output_usd_per_mtok": 3,
+    "source_url": "https://ai.google.dev/gemini-api/docs/pricing"
+  },
+  {
+    "slug": "gemini-2-5-flash",
+    "name": "Gemini 2.5 Flash",
+    "provider": "Google",
+    "input_usd_per_mtok": 0.3,
+    "output_usd_per_mtok": 2.5,
+    "source_url": "https://ai.google.dev/gemini-api/docs/pricing"
+  },
+  {
+    "slug": "deepseek-v4-pro",
+    "name": "DeepSeek V4 Pro",
+    "provider": "DeepSeek",
+    "input_usd_per_mtok": 1.74,
+    "output_usd_per_mtok": 3.48,
+    "source_url": "https://api-docs.deepseek.com/quick_start/pricing"
+  },
+  {
+    "slug": "deepseek-v4-flash",
+    "name": "DeepSeek V4 Flash",
+    "provider": "DeepSeek",
+    "input_usd_per_mtok": 0.14,
+    "output_usd_per_mtok": 0.28,
+    "source_url": "https://api-docs.deepseek.com/quick_start/pricing"
+  }
+]
+        </script>
+        <script type="module" src="./calculator.js"></script>
+      </section>
+
+      <section class="panel panel-cta" id="subscribe" aria-labelledby="subscribe-title">
+        <h2 class="panel-title" id="subscribe-title">
+          <span class="panel-cmd" aria-hidden="true">&gt; subscribe --weekly</span>
+          <span class="panel-name">The weekly e/acc newsletter</span>
+        </h2>
+        <p class="cta-lead">One email a week: what accelerated.</p>
+        <p class="cta-sub">
+          Frontier releases, price drops, compute buildouts — the week's acceleration in five minutes,
+          sourced and numeric. Free.
+        </p>
+        <form
+          class="subscribe-main"
+          action="https://buttondown.com/api/emails/embed-subscribe/REPLACE_WITH_BUTTONDOWN_USERNAME"
+          method="post"
+          target="_blank"
+        >
+          <div class="prompt-row">
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="you@domain.com"
+              autocomplete="email"
+              aria-label="Email address"
+            />
+            <button type="submit">RUN</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a href="./">home</a>
+      <span aria-hidden="true">·</span>
+      <a href="./what-is-eacc">what is e/acc</a>
+      <span aria-hidden="true">·</span>
+      <a href="./timeline">AI timeline</a>
+      <span aria-hidden="true">·</span>
+      <a href="./calculator">token calculator</a>
+      <span aria-hidden="true">·</span>
+      <a href="mailto:hello@e-acc.ai">hello@e-acc.ai</a>
+    </footer>
+    <script src="./guard.js" defer></script>
+  </body>
+</html>

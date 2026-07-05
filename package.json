@@ -2,9 +2,10 @@
   "name": "eacc",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node gen/build.mjs",
+    "verify": "node site/verify.mjs",
+    "test": "node --test test/tokenmath.test.mjs"
   },
   "private": true
 }
