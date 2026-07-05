@@ -1,7 +1,7 @@
 // Static site generator. Run: node gen/build.mjs
 // Reads page modules + data, emits site/<slug>.html and site/sitemap.xml.
 // The homepage (site/index.html) is hand-written and NOT touched here.
-import { writeFileSync, readFileSync } from "node:fs";
+import { writeFileSync, readFileSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { layout } from "./layout.mjs";
@@ -9,15 +9,18 @@ import { layout } from "./layout.mjs";
 import whatIsEacc from "./pages/what-is-eacc.mjs";
 import timeline from "./pages/timeline.mjs";
 import calculator from "./pages/calculator.mjs";
+import pricing from "./pages/pricing.mjs";
 
-const pages = [whatIsEacc, timeline, calculator];
+const pages = [whatIsEacc, timeline, calculator, ...pricing];
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const siteDir = join(root, "site");
 const SITE = "https://e-acc.ai";
 
 for (const page of pages) {
   const html = layout(page);
-  writeFileSync(join(siteDir, `${page.slug}.html`), html);
+  const outPath = join(siteDir, `${page.slug}.html`);
+  mkdirSync(dirname(outPath), { recursive: true });
+  writeFileSync(outPath, html);
   console.log(`  built ${page.slug}.html (${html.length} bytes)`);
 }
 

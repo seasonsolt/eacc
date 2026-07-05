@@ -96,13 +96,17 @@ try {
 }
 
 // ── 2. per-page TDH, canonical, structured data ──────────────────────────
-const pageFiles = readdirSync(root).filter((f) => f.endsWith(".html"));
+const pageFiles = readdirSync(root, { recursive: true })
+  .map(String)
+  .filter((f) => f.endsWith(".html"))
+  .map((f) => f.split("\\").join("/"));
 const pages = new Map(pageFiles.map((f) => [f, read(f)]));
-const KEYWORDS = {
-  "index.html": "e/acc",
-  "what-is-eacc.html": "e/acc",
-  "timeline.html": "timeline",
-  "calculator.html": "calculator",
+const keywordFor = (file) => {
+  if (file === "index.html" || file === "what-is-eacc.html") return "e/acc";
+  if (file === "timeline.html") return "timeline";
+  if (file === "calculator.html") return "calculator";
+  if (file === "pricing.html" || file.startsWith("pricing/")) return "pricing";
+  return null;
 };
 
 const titles = new Map();
@@ -130,7 +134,7 @@ for (const [file, html] of pages) {
     .replace(/\s+/g, " ")
     .trim();
 
-  const keyword = KEYWORDS[file];
+  const keyword = keywordFor(file);
   if (keyword) {
     if (!title.toLowerCase().includes(keyword)) fail(`${at}: title missing keyword "${keyword}"`);
     if (!h1Text.toLowerCase().includes(keyword)) fail(`${at}: h1 missing keyword "${keyword}"`);
@@ -174,17 +178,32 @@ for (const [file, html] of pages) {
       anchor = target.slice(hashAt + 1);
       target = target.slice(0, hashAt);
     }
-    target = target.replace(/^\.\//, "");
+    // resolve the href relative to the source file's directory
+    const srcDir = file.includes("/") ? file.slice(0, file.lastIndexOf("/")) : "";
+    const parts = srcDir ? srcDir.split("/") : [];
+    let escaped = false;
+    for (const seg of target.split("/")) {
+      if (seg === "" || seg === ".") continue;
+      if (seg === "..") {
+        if (parts.length === 0) escaped = true;
+        else parts.pop();
+      } else parts.push(seg);
+    }
+    if (escaped) {
+      fail(`${file}: link "${href}" escapes the site root`);
+      continue;
+    }
+    const rel = parts.join("/");
     // asset references (styles.css, fonts, og.png …) must exist as files
-    if (target.includes(".")) {
+    if (rel.includes(".")) {
       try {
-        readFileSync(join(root, target));
+        readFileSync(join(root, rel));
       } catch {
         fail(`${file}: asset "${href}" does not exist`);
       }
       continue;
     }
-    const targetFile = target === "" ? (hashAt === 0 ? file : "index.html") : `${target}.html`;
+    const targetFile = rel === "" ? (hashAt === 0 ? file : "index.html") : `${rel}.html`;
     if (!pages.has(targetFile)) {
       fail(`${file}: link "${href}" → ${targetFile} does not exist`);
       continue;
