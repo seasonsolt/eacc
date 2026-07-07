@@ -100,7 +100,8 @@ const pageFiles = readdirSync(root, { recursive: true })
   .map(String)
   .filter((f) => f.endsWith(".html"))
   .map((f) => f.split("\\").join("/"))
-  .filter((f) => !/^google[0-9a-f]+\.html$/.test(f)); // GSC verification token, not a page
+  .filter((f) => !/^google[0-9a-f]+\.html$/.test(f)) // GSC verification token, not a page
+  .filter((f) => f !== "404.html"); // noindex error page — no canonical, not in sitemap
 const pages = new Map(pageFiles.map((f) => [f, read(f)]));
 const keywordFor = (file) => {
   if (file === "index.html" || file === "what-is-eacc.html") return "e/acc";
