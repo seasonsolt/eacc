@@ -1,12 +1,23 @@
 # Measured traffic is ~140 visits/month, not ~2k — the audience thesis is dead
 
-On 2026-07-07 we finally read Cloudflare Web Analytics (it had been recording
-via automatic setup for ~4 months; we had wrongly assumed no analytics existed).
-Reality for **e-acc.ai**, bots excluded, last 21 days: **100 visits, 170 page
-views** — roughly **140 visits / 240 page views per month**. The "~2k organic
-visits/month" figure that ADR-0002 and the entire SEO replan were built on was
-never measured; it was a guess from domain history and e/acc term popularity,
-and it is off by ~14×.
+On 2026-07-07 we reconciled two Cloudflare measurement systems that had both
+been running for ~4 months (we had wrongly assumed no analytics existed):
+
+- **Zone Overview** (edge/IP-based, bot-inclusive): **1.78k unique visitors /
+  30 days**. This is where the "~2k" figure came from — it is real, but it
+  counts every unique IP that touches the domain, dominated by crawlers, SEO
+  bots, LLM scrapers, and security scanners.
+- **Web Analytics** (JS-beacon, real browsers): **~110 visits / 21 days ≈
+  ~150/month**. Toggling "exclude bots" moved this by only 10 (100→110),
+  because bots don't execute the beacon JS — so this number is essentially
+  pure human traffic.
+
+The two reconcile cleanly: **real human visitors are ~150/month; ~91% of the
+1.78k gross-IP figure is bots.** (The beacon may undercount ad-blocking
+technical visitors, so true humans could be ~200–350/month — still an order of
+magnitude below 2k.) The "~2k organic audience" the audience thesis assumed was
+a bot-inclusive edge metric measuring the wrong thing; the addressable human
+audience is **low hundreds/month at most.**
 
 **Consequence**: the "audience asset" thesis (ADR-0002) is not viable at this
 volume. A newsletter funnel over 140 visits/month yields single-digit
