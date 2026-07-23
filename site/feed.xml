@@ -5,8 +5,16 @@
     <link>https://e-acc.ai/timeline</link>
     <description>Frontier model releases, compute buildouts and culture moments — the AI acceleration, dated and sourced. Updated weekly by e-acc.ai.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 04 Jul 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 07 Jul 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://e-acc.ai/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[frontier] Claude Sonnet 5 ships</title>
+      <link>https://www.anthropic.com/news/claude-sonnet-5</link>
+      <guid isPermaLink="false">e-acc.ai:2026-06-30:claude-sonnet-5-ships</guid>
+      <pubDate>Tue, 30 Jun 2026 00:00:00 GMT</pubDate>
+      <description>Anthropic's most agentic Sonnet becomes the default model — near-Opus performance at Sonnet speed and price, aimed squarely at running agents cheaply.</description>
+      <category>model</category>
+    </item>
     <item>
       <title>[frontier] Claude Fable 5 ships</title>
       <link>https://www.anthropic.com/news/claude-fable-5-mythos-5</link>

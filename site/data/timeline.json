@@ -1,7 +1,15 @@
 {
   "_readme": "Acceleration log. Add new events at the top. type: model | policy | compute | culture. frontier: true marks frontier-model releases (drives the 'days since' metric). Dates are UTC, YYYY-MM-DD. Update weekly, then git push to deploy.",
-  "updated": "2026-07-04",
+  "updated": "2026-07-07",
   "events": [
+    {
+      "date": "2026-06-30",
+      "type": "model",
+      "frontier": true,
+      "title": "Claude Sonnet 5 ships",
+      "detail": "Anthropic's most agentic Sonnet becomes the default model — near-Opus performance at Sonnet speed and price, aimed squarely at running agents cheaply.",
+      "source_url": "https://www.anthropic.com/news/claude-sonnet-5"
+    },
     {
       "date": "2026-06-09",
       "type": "model",

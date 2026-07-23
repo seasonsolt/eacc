@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "updated": "2026-07-04",
+  "updated": "2026-07-07",
   "docs": "https://e-acc.ai/api",
   "event": {
-    "date": "2026-06-09",
+    "date": "2026-06-30",
     "type": "model",
     "frontier": true,
-    "title": "Claude Fable 5 ships",
-    "detail": "Anthropic opens the Claude 5 family: always-on adaptive thinking and a 1M-token context window.",
-    "source_url": "https://www.anthropic.com/news/claude-fable-5-mythos-5"
+    "title": "Claude Sonnet 5 ships",
+    "detail": "Anthropic's most agentic Sonnet becomes the default model — near-Opus performance at Sonnet speed and price, aimed squarely at running agents cheaply.",
+    "source_url": "https://www.anthropic.com/news/claude-sonnet-5"
   }
 }

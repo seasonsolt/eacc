@@ -60,6 +60,10 @@
         </h2>
         <div class="metrics-strip">
             <div class="metric">
+              <span class="metric-value" data-since="2026-06-30">—</span>
+              <span class="metric-label">days since Claude Sonnet 5</span>
+            </div>
+            <div class="metric">
               <span class="metric-value" data-since="2026-06-09">—</span>
               <span class="metric-label">days since Claude Fable 5</span>
             </div>
@@ -71,17 +75,21 @@
               <span class="metric-value" data-since="2025-11-24">—</span>
               <span class="metric-label">days since Claude Opus 4.5</span>
             </div>
-            <div class="metric">
-              <span class="metric-value" data-since="2025-11-18">—</span>
-              <span class="metric-label">days since Gemini 3</span>
-            </div>
         </div>
 
         <h2 class="panel-title">
-          <span class="panel-cmd" aria-hidden="true">$ tail -n 16 /var/log/acceleration</span>
+          <span class="panel-cmd" aria-hidden="true">$ tail -n 17 /var/log/acceleration</span>
           <span class="panel-name">The full AI acceleration log, 2022–2026</span>
         </h2>
         <ol class="log-list">
+            <li class="log-entry" data-frontier="true">
+              <span class="log-date">2026-06-30</span>
+              <span class="log-tag log-tag--model">MODEL</span>
+              <div>
+                <p class="log-title"><a href="https://www.anthropic.com/news/claude-sonnet-5" target="_blank" rel="noopener">Claude Sonnet 5 ships</a></p>
+                <p class="log-detail">Anthropic's most agentic Sonnet becomes the default model — near-Opus performance at Sonnet speed and price, aimed squarely at running agents cheaply.</p>
+              </div>
+            </li>
             <li class="log-entry" data-frontier="true">
               <span class="log-date">2026-06-09</span>
               <span class="log-tag log-tag--model">MODEL</span>
