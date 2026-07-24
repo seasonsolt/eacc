@@ -108,6 +108,15 @@
       "output_usd_per_mtok": 15.0,
       "note": "2.8T open-weight MoE; always reasons, so reasoning traces bill at the output rate. Cache-hit input is $0.30.",
       "source_url": "https://platform.kimi.ai/docs/guide/kimi-k3-quickstart"
+    },
+    {
+      "slug": "grok-4-5",
+      "name": "Grok 4.5",
+      "provider": "xAI",
+      "input_usd_per_mtok": 2.0,
+      "output_usd_per_mtok": 6.0,
+      "note": "xAI's V9-Medium coding model (1.5T), shipped 2026-07-08 as an interim before the still-unreleased Grok 5.",
+      "source_url": "https://x.ai"
     }
   ]
 }

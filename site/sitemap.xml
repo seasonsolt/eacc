@@ -91,6 +91,11 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://e-acc.ai/pricing/grok-4-5</loc>
+    <lastmod>2026-07-23</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://e-acc.ai/api</loc>
     <lastmod>2026-07-23</lastmod>
     <changefreq>weekly</changefreq>

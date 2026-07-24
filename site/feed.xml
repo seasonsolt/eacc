@@ -24,6 +24,14 @@
       <category>model</category>
     </item>
     <item>
+      <title>[frontier] Grok 4.5 ships</title>
+      <link>https://x.ai/news</link>
+      <guid isPermaLink="false">e-acc.ai:2026-07-08:grok-4-5-ships</guid>
+      <pubDate>Wed, 08 Jul 2026 00:00:00 GMT</pubDate>
+      <description>xAI's V9 coding model lands as Grok 4.5 — 1.5T parameters trained on Cursor data, priced at $2 / $6 per Mtok. Still not the fabled 6T Grok 5, which keeps slipping.</description>
+      <category>model</category>
+    </item>
+    <item>
       <title>[frontier] Claude Sonnet 5 ships</title>
       <link>https://www.anthropic.com/news/claude-sonnet-5</link>
       <guid isPermaLink="false">e-acc.ai:2026-06-30:claude-sonnet-5-ships</guid>

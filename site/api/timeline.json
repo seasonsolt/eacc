@@ -20,6 +20,14 @@
       "source_url": "https://openai.com/index/gpt-5-6/"
     },
     {
+      "date": "2026-07-08",
+      "type": "model",
+      "frontier": true,
+      "title": "Grok 4.5 ships",
+      "detail": "xAI's V9 coding model lands as Grok 4.5 — 1.5T parameters trained on Cursor data, priced at $2 / $6 per Mtok. Still not the fabled 6T Grok 5, which keeps slipping.",
+      "source_url": "https://x.ai/news"
+    },
+    {
       "date": "2026-06-30",
       "type": "model",
       "frontier": true,
