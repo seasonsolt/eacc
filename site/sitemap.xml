@@ -26,12 +26,22 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://e-acc.ai/pricing/gpt-5-5</loc>
+    <loc>https://e-acc.ai/pricing/gpt-5-6-sol</loc>
+    <lastmod>2026-07-23</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://e-acc.ai/pricing/gpt-5-6-terra</loc>
     <lastmod>2026-07-23</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://e-acc.ai/pricing/gpt-5-6-luna</loc>
+    <lastmod>2026-07-23</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://e-acc.ai/pricing/gpt-5-5</loc>
     <lastmod>2026-07-23</lastmod>
     <changefreq>weekly</changefreq>
   </url>
@@ -72,6 +82,11 @@
   </url>
   <url>
     <loc>https://e-acc.ai/pricing/deepseek-v4-flash</loc>
+    <lastmod>2026-07-23</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://e-acc.ai/pricing/kimi-k3</loc>
     <lastmod>2026-07-23</lastmod>
     <changefreq>weekly</changefreq>
   </url>

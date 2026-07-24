@@ -1,13 +1,22 @@
 {
   "_readme": "Model registry for the calculator and (Phase 2) programmatic pricing pages. Prices are USD per million tokens, standard API tier, cache-miss. Verify against source_url and bump `updated` when editing. slug must be URL-safe and stable.",
-  "updated": "2026-07-05",
+  "updated": "2026-07-23",
   "models": [
     {
-      "slug": "gpt-5-5",
-      "name": "GPT-5.5",
+      "slug": "gpt-5-6-sol",
+      "name": "GPT-5.6 Sol",
       "provider": "OpenAI",
       "input_usd_per_mtok": 5.0,
       "output_usd_per_mtok": 30.0,
+      "note": "Flagship tier of the GPT-5.6 family; generally available since 2026-07-09.",
+      "source_url": "https://developers.openai.com/api/docs/pricing"
+    },
+    {
+      "slug": "gpt-5-6-terra",
+      "name": "GPT-5.6 Terra",
+      "provider": "OpenAI",
+      "input_usd_per_mtok": 2.5,
+      "output_usd_per_mtok": 15.0,
       "source_url": "https://developers.openai.com/api/docs/pricing"
     },
     {
@@ -16,6 +25,14 @@
       "provider": "OpenAI",
       "input_usd_per_mtok": 1.0,
       "output_usd_per_mtok": 6.0,
+      "source_url": "https://developers.openai.com/api/docs/pricing"
+    },
+    {
+      "slug": "gpt-5-5",
+      "name": "GPT-5.5",
+      "provider": "OpenAI",
+      "input_usd_per_mtok": 5.0,
+      "output_usd_per_mtok": 30.0,
       "source_url": "https://developers.openai.com/api/docs/pricing"
     },
     {
@@ -82,6 +99,15 @@
       "input_usd_per_mtok": 0.14,
       "output_usd_per_mtok": 0.28,
       "source_url": "https://api-docs.deepseek.com/quick_start/pricing"
+    },
+    {
+      "slug": "kimi-k3",
+      "name": "Kimi K3",
+      "provider": "Moonshot",
+      "input_usd_per_mtok": 3.0,
+      "output_usd_per_mtok": 15.0,
+      "note": "2.8T open-weight MoE; always reasons, so reasoning traces bill at the output rate. Cache-hit input is $0.30.",
+      "source_url": "https://platform.kimi.ai/docs/guide/kimi-k3-quickstart"
     }
   ]
 }

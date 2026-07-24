@@ -17,6 +17,9 @@
     <link rel="preload" href="./fonts/vt323.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="./fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="./favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
     <link rel="alternate" type="application/rss+xml" title="e/acc — the acceleration log" href="./feed.xml" />
 
   </head>
@@ -51,7 +54,7 @@
           Paste text or type a word count, set an expected reply length, and get the API cost
           for every tracked model — ranked cheapest first. Estimates use the standard English
           heuristics (~0.75 words or ~4 characters per token). Prices are standard-tier USD per
-          million tokens, verified 2026-07-05; see also
+          million tokens, verified 2026-07-23; see also
           <a href="./timeline">what shipped when</a> and
           <a href="./what-is-eacc">why this site exists</a>.
         </p>
@@ -86,7 +89,7 @@
             <tbody><!-- rendered by calculator.js --></tbody>
           </table>
           <p class="chart-caption">
-            Registry updated 2026-07-05. Cache discounts, batch tiers and promos not
+            Registry updated 2026-07-23. Cache discounts, batch tiers and promos not
             included — this is the standard pay-as-you-go rate.
           </p>
         </div>
@@ -94,11 +97,20 @@
         <script type="application/json" id="models-data">
 [
   {
-    "slug": "gpt-5-5",
-    "name": "GPT-5.5",
+    "slug": "gpt-5-6-sol",
+    "name": "GPT-5.6 Sol",
     "provider": "OpenAI",
     "input_usd_per_mtok": 5,
     "output_usd_per_mtok": 30,
+    "note": "Flagship tier of the GPT-5.6 family; generally available since 2026-07-09.",
+    "source_url": "https://developers.openai.com/api/docs/pricing"
+  },
+  {
+    "slug": "gpt-5-6-terra",
+    "name": "GPT-5.6 Terra",
+    "provider": "OpenAI",
+    "input_usd_per_mtok": 2.5,
+    "output_usd_per_mtok": 15,
     "source_url": "https://developers.openai.com/api/docs/pricing"
   },
   {
@@ -107,6 +119,14 @@
     "provider": "OpenAI",
     "input_usd_per_mtok": 1,
     "output_usd_per_mtok": 6,
+    "source_url": "https://developers.openai.com/api/docs/pricing"
+  },
+  {
+    "slug": "gpt-5-5",
+    "name": "GPT-5.5",
+    "provider": "OpenAI",
+    "input_usd_per_mtok": 5,
+    "output_usd_per_mtok": 30,
     "source_url": "https://developers.openai.com/api/docs/pricing"
   },
   {
@@ -173,6 +193,15 @@
     "input_usd_per_mtok": 0.14,
     "output_usd_per_mtok": 0.28,
     "source_url": "https://api-docs.deepseek.com/quick_start/pricing"
+  },
+  {
+    "slug": "kimi-k3",
+    "name": "Kimi K3",
+    "provider": "Moonshot",
+    "input_usd_per_mtok": 3,
+    "output_usd_per_mtok": 15,
+    "note": "2.8T open-weight MoE; always reasons, so reasoning traces bill at the output rate. Cache-hit input is $0.30.",
+    "source_url": "https://platform.kimi.ai/docs/guide/kimi-k3-quickstart"
   }
 ]
         </script>

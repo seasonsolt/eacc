@@ -40,6 +40,9 @@ export function layout({ slug, title, description, h1Cmd, h1Text, jsonLd, body, 
     <link rel="preload" href="${base}fonts/vt323.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="${base}fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="${base}styles.css" />
+    <link rel="icon" href="${base}favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="${base}favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="${base}apple-touch-icon.png" />
     <link rel="alternate" type="application/rss+xml" title="e/acc — the acceleration log" href="${base}feed.xml" />
 ${jsonLdBlocks}
 ${headExtra}  </head>
