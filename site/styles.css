@@ -1,6 +1,10 @@
 /* ── e/acc acceleration terminal ─ phosphor CRT ──────────────────────────
    Single CSS strategy: plain CSS, custom properties for every token.
-   Display: VT323. Text/data: JetBrains Mono variable. English-only.      */
+   Display: VT323. Text/data: JetBrains Mono variable. English-only.
+   CANON NOTE: this file is the source of truth for the phosphor-CRT
+   language. ACCEL UI's `matrix` theme (seasonsolt/ui styles/themes.css)
+   formalizes it — when changing brand values here (--phosphor, --amber,
+   --glow, radius), sync the matrix theme in that repo.                   */
 
 @font-face {
   font-family: "VT323";
