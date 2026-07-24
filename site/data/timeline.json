@@ -1,7 +1,23 @@
 {
   "_readme": "Acceleration log. Add new events at the top. type: model | policy | compute | culture. frontier: true marks frontier-model releases (drives the 'days since' metric). Dates are UTC, YYYY-MM-DD. Update weekly, then git push to deploy.",
-  "updated": "2026-07-07",
+  "updated": "2026-07-23",
   "events": [
+    {
+      "date": "2026-07-16",
+      "type": "model",
+      "frontier": true,
+      "title": "Kimi K3 ships",
+      "detail": "Moonshot's 2.8-trillion-parameter open-weight model lands — the first open '3T-class' model, trailing only Fable 5 and GPT-5.6 on overall capability. China closes the frontier gap.",
+      "source_url": "https://platform.kimi.ai/docs/guide/kimi-k3-quickstart"
+    },
+    {
+      "date": "2026-07-09",
+      "type": "model",
+      "frontier": true,
+      "title": "GPT-5.6 opens to the public",
+      "detail": "After a two-week federal review, OpenAI clears GPT-5.6 (Sol, Terra, Luna) for everyone — shipped alongside ChatGPT Work, an agent built to carry out whole jobs. The gate lifts.",
+      "source_url": "https://openai.com/index/gpt-5-6/"
+    },
     {
       "date": "2026-06-30",
       "type": "model",

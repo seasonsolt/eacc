@@ -5,8 +5,24 @@
     <link>https://e-acc.ai/timeline</link>
     <description>Frontier model releases, compute buildouts and culture moments — the AI acceleration, dated and sourced. Updated weekly by e-acc.ai.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 07 Jul 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 23 Jul 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://e-acc.ai/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[frontier] Kimi K3 ships</title>
+      <link>https://platform.kimi.ai/docs/guide/kimi-k3-quickstart</link>
+      <guid isPermaLink="false">e-acc.ai:2026-07-16:kimi-k3-ships</guid>
+      <pubDate>Thu, 16 Jul 2026 00:00:00 GMT</pubDate>
+      <description>Moonshot's 2.8-trillion-parameter open-weight model lands — the first open '3T-class' model, trailing only Fable 5 and GPT-5.6 on overall capability. China closes the frontier gap.</description>
+      <category>model</category>
+    </item>
+    <item>
+      <title>[frontier] GPT-5.6 opens to the public</title>
+      <link>https://openai.com/index/gpt-5-6/</link>
+      <guid isPermaLink="false">e-acc.ai:2026-07-09:gpt-5-6-opens-to-the-public</guid>
+      <pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate>
+      <description>After a two-week federal review, OpenAI clears GPT-5.6 (Sol, Terra, Luna) for everyone — shipped alongside ChatGPT Work, an agent built to carry out whole jobs. The gate lifts.</description>
+      <category>model</category>
+    </item>
     <item>
       <title>[frontier] Claude Sonnet 5 ships</title>
       <link>https://www.anthropic.com/news/claude-sonnet-5</link>
