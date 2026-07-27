@@ -95,6 +95,25 @@ try {
   fail(`models.json: ${err.message}`);
 }
 
+try {
+  const b = JSON.parse(read("data/benchmark.json"));
+  if (!b.source?.name || !b.source?.homepage || !b.source?.owner) {
+    fail("benchmark.json: cited data must keep source name/owner/homepage (attribution)");
+  }
+  if (!Array.isArray(b.runs) || b.runs.length === 0) fail("benchmark.json: runs must be non-empty");
+  else {
+    b.runs.forEach((r, i) => {
+      const at = `benchmark.json runs[${i}]`;
+      if (!r.model) fail(`${at}: missing model`);
+      if (!(r.pass_at_1 >= 0 && r.pass_at_1 <= 1)) fail(`${at}: pass_at_1 must be a 0-1 rate`);
+      if (!(r.mean_cost_usd > 0)) fail(`${at}: mean_cost_usd must be positive`);
+    });
+    ok(`benchmark.json: ${b.runs.length} runs, attribution to ${b.source.owner} intact`);
+  }
+} catch (err) {
+  fail(`benchmark.json: ${err.message}`);
+}
+
 // ── 2. per-page TDH, canonical, structured data ──────────────────────────
 const pageFiles = readdirSync(root, { recursive: true })
   .map(String)
@@ -109,6 +128,7 @@ const keywordFor = (file) => {
   if (file === "calculator.html") return "calculator";
   if (file === "pricing.html" || file.startsWith("pricing/")) return "pricing";
   if (file === "api.html") return "api";
+  if (file === "benchmark.html") return "benchmark";
   return null;
 };
 

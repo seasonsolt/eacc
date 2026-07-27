@@ -11,8 +11,9 @@ import timeline from "./pages/timeline.mjs";
 import calculator from "./pages/calculator.mjs";
 import pricing from "./pages/pricing.mjs";
 import api from "./pages/api.mjs";
+import benchmark from "./pages/benchmark.mjs";
 
-const pages = [whatIsEacc, timeline, calculator, ...pricing, api];
+const pages = [whatIsEacc, timeline, calculator, ...pricing, api, benchmark];
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const siteDir = join(root, "site");
 const SITE = "https://e-acc.ai";
@@ -76,6 +77,25 @@ writeFileSync(
   JSON.stringify({ version: 1, updated: timelineData.updated, docs: `${SITE}/api`, event: latestFrontier }, null, 2) + "\n"
 );
 console.log("  built api/timeline.json + api/latest-frontier.json");
+
+// benchmark endpoint — cited data, attribution travels with it
+const benchData = JSON.parse(readFileSync(join(siteDir, "data", "benchmark.json"), "utf8"));
+writeFileSync(
+  join(siteDir, "api", "benchmark.json"),
+  JSON.stringify(
+    {
+      version: 1,
+      docs: `${SITE}/benchmark`,
+      attribution: benchData.source,
+      generated_at: benchData.generated_at,
+      n_tasks_in_set: benchData.n_tasks_in_set,
+      runs: benchData.runs,
+    },
+    null,
+    2
+  ) + "\n"
+);
+console.log("  built api/benchmark.json");
 
 // sitemap covers the homepage plus every generated page; lastmod tracks the
 // newest of the two data files so weekly data pushes refresh it automatically
