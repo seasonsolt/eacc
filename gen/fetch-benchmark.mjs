@@ -9,7 +9,8 @@ import { writeFileSync, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const SOURCE = "https://deepswe.datacurve.ai/artifacts/v1/leaderboard-live.json";
+const VERSION = "v1.1";
+const SOURCE = `https://deepswe.datacurve.ai/artifacts/${VERSION}/leaderboard-live.json`;
 const HOMEPAGE = "https://deepswe.datacurve.ai/";
 const siteDir = join(dirname(fileURLToPath(import.meta.url)), "..", "site");
 
@@ -35,6 +36,7 @@ const runs = raw.rows
     mean_cost_usd: round(r.mean_cost_usd, 2),
     median_agent_steps: r.median_agent_steps ?? null,
     mean_output_tokens: Math.round(r.mean_output_tokens ?? 0),
+    median_output_tokens: Math.round(r.median_output_tokens ?? 0),
     n_tasks_attempted: r.n_tasks_attempted,
     n_runs: r.n_runs,
   }))
@@ -46,6 +48,7 @@ const out = {
     "Cited benchmark data. Source: DeepSWE by Datacurve (public leaderboard). We do not own or rebrand these numbers — always keep source/attribution fields when rendering. Refresh with: node gen/fetch-benchmark.mjs",
   source: {
     name: "DeepSWE",
+    version: VERSION,
     owner: "Datacurve",
     homepage: HOMEPAGE,
     data_url: SOURCE,
@@ -61,7 +64,7 @@ const out = {
 
 const path = join(siteDir, "data", "benchmark.json");
 writeFileSync(path, JSON.stringify(out, null, 2) + "\n");
-console.log(`  wrote benchmark.json — ${runs.length} runs, ${raw.n_tasks_in_set} tasks, generated ${raw.generated_at.slice(0, 10)}`);
+console.log(`  wrote benchmark.json — ${VERSION}: ${runs.length} runs, ${new Set(runs.map((r) => r.model)).size} models, ${raw.n_tasks_in_set} tasks, generated ${raw.generated_at.slice(0, 10)}`);
 
 function round(n, d) {
   return typeof n === "number" ? Number(n.toFixed(d)) : NaN;

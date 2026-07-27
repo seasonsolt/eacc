@@ -75,6 +75,53 @@ const labels = byCost
   )
   .join("\n");
 
+// best configuration per model — the "which model should I use" answer
+const bestByModel = [];
+const seen = new Set();
+for (const r of bench.runs) {
+  if (!seen.has(r.model)) {
+    seen.add(r.model);
+    bestByModel.push(r);
+  }
+}
+
+// biggest effort spread within one model: the page's central insight
+const byModel = new Map();
+for (const r of bench.runs) {
+  if (!byModel.has(r.model)) byModel.set(r.model, []);
+  byModel.get(r.model).push(r);
+}
+let spreadCase = null;
+for (const [model, rs] of byModel) {
+  // compare only usable configurations — a degenerate low-effort run that
+  // barely completes anything is a broken setting, not a cost/quality trade
+  const usable = rs.filter((r) => r.pass_at_1 >= 0.25);
+  if (usable.length < 2) continue;
+  const hi = usable.reduce((a, b) => (b.pass_at_1 > a.pass_at_1 ? b : a));
+  const lo = usable.reduce((a, b) => (b.pass_at_1 < a.pass_at_1 ? b : a));
+  const gap = hi.pass_at_1 - lo.pass_at_1;
+  if (!spreadCase || gap > spreadCase.gap) spreadCase = { model, hi, lo, gap };
+}
+
+// best value above a real quality bar
+const valuePick = bench.runs
+  .filter((r) => r.pass_at_1 > 0.6)
+  .sort((a, b) => b.pass_at_1 / b.mean_cost_usd - a.pass_at_1 / a.mean_cost_usd)[0];
+
+const bestRows = bestByModel
+  .map((r) => {
+    const slug = slugFor(r.model);
+    const name = slug ? `<a href="./pricing/${slug}">${esc(r.model)}</a>` : esc(r.model);
+    return `            <tr>
+              <td>${name}</td>
+              <td>${esc(r.effort || "—")}</td>
+              <td class="calc-total">${(r.pass_at_1 * 100).toFixed(1)}%</td>
+              <td>$${r.mean_cost_usd.toFixed(2)}</td>
+              <td>${(r.pass_at_1 * 100 / r.mean_cost_usd).toFixed(1)}</td>
+            </tr>`;
+  })
+  .join("\n");
+
 const rows = bench.runs
   .map((r) => {
     const slug = slugFor(r.model);
@@ -100,8 +147,8 @@ const body = `
           How well do frontier models actually <em>finish real engineering tasks</em>, and what does each
           attempt cost? The numbers below are the public
           <a href="${esc(bench.source.homepage)}" target="_blank" rel="noopener">${esc(bench.source.name)}</a>
-          leaderboard by <strong>${esc(bench.source.owner)}</strong> — ${bench.n_tasks_in_set} agentic
-          tasks, pass@1 over repeated runs with 95% confidence intervals, generated
+          leaderboard (${esc(bench.source.version || "")}) by <strong>${esc(bench.source.owner)}</strong> —
+          ${bench.runs.length} configurations across ${bestByModel.length} models on ${bench.n_tasks_in_set} agentic tasks, pass@1 over repeated runs with 95% confidence intervals, generated
           ${esc(bench.generated_at.slice(0, 10))}. <strong>All figures belong to ${esc(bench.source.owner)}</strong>;
           we cite them, we don't own them.
         </p>
@@ -111,6 +158,30 @@ const body = `
           theirs</strong> — so this is the closest public, reproducible reference to what we see on
           real production code. Prices per model live on <a href="./pricing">our pricing pages</a>.
         </p>
+
+        <h2 class="panel-title">
+          <span class="panel-cmd" aria-hidden="true">$ best --per-model</span>
+          <span class="panel-name">Best configuration per model</span>
+        </h2>
+        <p class="panel-lead">
+          Each model at the reasoning effort that scored highest — the short answer to
+          "which one should I use", with what that run costs and how much pass rate you get
+          per dollar.
+        </p>
+        <table class="calc-table">
+          <thead>
+            <tr>
+              <th scope="col">model</th>
+              <th scope="col">best effort</th>
+              <th scope="col">pass@1</th>
+              <th scope="col">cost/task</th>
+              <th scope="col">pts per $</th>
+            </tr>
+          </thead>
+          <tbody>
+${bestRows}
+          </tbody>
+        </table>
 
         <h2 class="panel-title">
           <span class="panel-cmd" aria-hidden="true">$ plot pass@1 --vs cost --log</span>
@@ -162,12 +233,20 @@ ${rows}
           <p>${esc(bench.unit)}</p>
           <p>${esc(bench.scope)}</p>
           <p>
-            Reasoning effort is a per-run setting, not a different model — the same model at
-            <code>max</code> and <code>medium</code> is two rows here, and the gap between them is
-            often larger than the gap between vendors. That is the practical lesson:
-            <strong>effort tuning moves both score and bill more than model choice does</strong>,
-            and at the top of the range you pay roughly ${spread}× more per task than the cheapest
-            frontier-quality configuration.
+            Reasoning effort is a per-run setting, not a different model — and it moves the numbers
+            as much as switching vendors does. The widest case here is
+            <strong>${esc(spreadCase.model)}</strong>: ${(spreadCase.lo.pass_at_1 * 100).toFixed(1)}%
+            at <code>${esc(spreadCase.lo.effort)}</code> for $${spreadCase.lo.mean_cost_usd.toFixed(2)}
+            versus ${(spreadCase.hi.pass_at_1 * 100).toFixed(1)}% at
+            <code>${esc(spreadCase.hi.effort)}</code> for $${spreadCase.hi.mean_cost_usd.toFixed(2)} —
+            ${(spreadCase.gap * 100).toFixed(1)} points of pass rate for
+            ${(spreadCase.hi.mean_cost_usd / spreadCase.lo.mean_cost_usd).toFixed(1)}× the bill, same
+            model. The practical lesson: <strong>tune effort before you switch vendors</strong>.
+            Best value above a 60% bar is
+            <strong>${esc(valuePick.model)} ${esc(valuePick.effort || "")}</strong> at
+            ${(valuePick.pass_at_1 * 100).toFixed(1)}% for $${valuePick.mean_cost_usd.toFixed(2)}
+            (${(valuePick.pass_at_1 * 100 / valuePick.mean_cost_usd).toFixed(1)} points per dollar),
+            while the top score costs $${top.mean_cost_usd.toFixed(2)}.
           </p>
           <p class="readme-links">
             <a href="${esc(bench.source.homepage)}" target="_blank" rel="noopener">${esc(bench.source.name)} leaderboard by ${esc(bench.source.owner)} (original source)</a>

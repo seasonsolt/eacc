@@ -4,12 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>AI Coding Agent Benchmark: Score vs Cost per Task | e-acc.ai</title>
-    <meta name="description" content="Coding-agent benchmark as capability versus cost: 29 configurations over 113 agentic tasks, pass@1 with CIs. Data cited from DeepSWE by Datacurve." />
+    <meta name="description" content="Coding-agent benchmark as capability versus cost: 50 configurations over 113 agentic tasks, pass@1 with CIs. Data cited from DeepSWE by Datacurve." />
     <link rel="canonical" href="https://e-acc.ai/benchmark" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://e-acc.ai/benchmark" />
     <meta property="og:title" content="AI Coding Agent Benchmark: Score vs Cost per Task | e-acc.ai" />
-    <meta property="og:description" content="Coding-agent benchmark as capability versus cost: 29 configurations over 113 agentic tasks, pass@1 with CIs. Data cited from DeepSWE by Datacurve." />
+    <meta property="og:description" content="Coding-agent benchmark as capability versus cost: 50 configurations over 113 agentic tasks, pass@1 with CIs. Data cited from DeepSWE by Datacurve." />
     <meta property="og:image" content="https://e-acc.ai/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -54,9 +54,9 @@
           How well do frontier models actually <em>finish real engineering tasks</em>, and what does each
           attempt cost? The numbers below are the public
           <a href="https://deepswe.datacurve.ai/" target="_blank" rel="noopener">DeepSWE</a>
-          leaderboard by <strong>Datacurve</strong> — 113 agentic
-          tasks, pass@1 over repeated runs with 95% confidence intervals, generated
-          2026-06-20. <strong>All figures belong to Datacurve</strong>;
+          leaderboard (v1.1) by <strong>Datacurve</strong> —
+          50 configurations across 18 models on 113 agentic tasks, pass@1 over repeated runs with 95% confidence intervals, generated
+          2026-07-25. <strong>All figures belong to Datacurve</strong>;
           we cite them, we don't own them.
         </p>
         <p class="panel-lead">
@@ -67,11 +67,160 @@
         </p>
 
         <h2 class="panel-title">
+          <span class="panel-cmd" aria-hidden="true">$ best --per-model</span>
+          <span class="panel-name">Best configuration per model</span>
+        </h2>
+        <p class="panel-lead">
+          Each model at the reasoning effort that scored highest — the short answer to
+          "which one should I use", with what that run costs and how much pass rate you get
+          per dollar.
+        </p>
+        <table class="calc-table">
+          <thead>
+            <tr>
+              <th scope="col">model</th>
+              <th scope="col">best effort</th>
+              <th scope="col">pass@1</th>
+              <th scope="col">cost/task</th>
+              <th scope="col">pts per $</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>claude-opus-5</td>
+              <td>max</td>
+              <td class="calc-total">73.7%</td>
+              <td>$11.84</td>
+              <td>6.2</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/gpt-5-6-sol">gpt-5-6-sol</a></td>
+              <td>max</td>
+              <td class="calc-total">72.7%</td>
+              <td>$8.39</td>
+              <td>8.7</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/claude-fable-5">claude-fable-5</a></td>
+              <td>xhigh</td>
+              <td class="calc-total">69.9%</td>
+              <td>$13.41</td>
+              <td>5.2</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/gpt-5-6-terra">gpt-5-6-terra</a></td>
+              <td>max</td>
+              <td class="calc-total">69.6%</td>
+              <td>$4.95</td>
+              <td>14.1</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/kimi-k3">kimi-k3</a></td>
+              <td>max</td>
+              <td class="calc-total">68.5%</td>
+              <td>$4.65</td>
+              <td>14.7</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/gpt-5-6-luna">gpt-5-6-luna</a></td>
+              <td>max</td>
+              <td class="calc-total">67.2%</td>
+              <td>$3.03</td>
+              <td>22.2</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/gpt-5-5">gpt-5-5</a></td>
+              <td>xhigh</td>
+              <td class="calc-total">67.0%</td>
+              <td>$7.23</td>
+              <td>9.3</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/claude-opus-4-8">claude-opus-4-8</a></td>
+              <td>max</td>
+              <td class="calc-total">59.0%</td>
+              <td>$13.22</td>
+              <td>4.5</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/claude-sonnet-5">claude-sonnet-5</a></td>
+              <td>max</td>
+              <td class="calc-total">53.8%</td>
+              <td>$26.40</td>
+              <td>2.0</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/grok-4-5">grok-4-5</a></td>
+              <td>high</td>
+              <td class="calc-total">53.8%</td>
+              <td>$2.42</td>
+              <td>22.2</td>
+            </tr>
+            <tr>
+              <td>muse-spark-1-1</td>
+              <td>xhigh</td>
+              <td class="calc-total">53.3%</td>
+              <td>$2.36</td>
+              <td>22.6</td>
+            </tr>
+            <tr>
+              <td>gpt-5-4</td>
+              <td>xhigh</td>
+              <td class="calc-total">51.8%</td>
+              <td>$5.65</td>
+              <td>9.2</td>
+            </tr>
+            <tr>
+              <td>gemini-3-6-flash</td>
+              <td>high</td>
+              <td class="calc-total">48.6%</td>
+              <td>$3.53</td>
+              <td>13.8</td>
+            </tr>
+            <tr>
+              <td>glm-5-2</td>
+              <td>max</td>
+              <td class="calc-total">43.8%</td>
+              <td>$3.92</td>
+              <td>11.2</td>
+            </tr>
+            <tr>
+              <td>gemini-3-5-flash</td>
+              <td>medium</td>
+              <td class="calc-total">37.4%</td>
+              <td>$7.34</td>
+              <td>5.1</td>
+            </tr>
+            <tr>
+              <td>kimi-k2-7-code</td>
+              <td>—</td>
+              <td class="calc-total">30.5%</td>
+              <td>$2.82</td>
+              <td>10.8</td>
+            </tr>
+            <tr>
+              <td>claude-sonnet-4-6</td>
+              <td>high</td>
+              <td class="calc-total">29.9%</td>
+              <td>$5.52</td>
+              <td>5.4</td>
+            </tr>
+            <tr>
+              <td>gemini-3-1-pro-preview</td>
+              <td>high</td>
+              <td class="calc-total">11.8%</td>
+              <td>$9.48</td>
+              <td>1.2</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2 class="panel-title">
           <span class="panel-cmd" aria-hidden="true">$ plot pass@1 --vs cost --log</span>
           <span class="panel-name">Capability versus cost per task</span>
         </h2>
         <figure class="chart-frame">
-          <div class="price-chart" role="img" aria-label="Scatter plot: agentic task pass rate versus average cost per task, log scale. The Pareto frontier runs from cheap low-scoring configurations up to gpt-5-5 at 70 percent.">
+          <div class="price-chart" role="img" aria-label="Scatter plot: agentic task pass rate versus average cost per task, log scale. The Pareto frontier runs from cheap low-scoring configurations up to claude-opus-5 at 74 percent.">
             <svg viewBox="0 0 760 420" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
       <line x1="52" y1="374.0" x2="732" y2="374.0" stroke="#0d2d1c" stroke-width="1"/>
       <text x="44" y="378.0" text-anchor="end" fill="#7da68a" font-size="11">0%</text>
@@ -83,63 +232,91 @@
       <text x="44" y="115.5" text-anchor="end" fill="#7da68a" font-size="11">60%</text>
       <line x1="52" y1="24.0" x2="732" y2="24.0" stroke="#0d2d1c" stroke-width="1"/>
       <text x="44" y="28.0" text-anchor="end" fill="#7da68a" font-size="11">80%</text>
-      <text x="160.9" y="398" text-anchor="middle" fill="#7da68a" font-size="11">$1</text>
-      <text x="291.1" y="398" text-anchor="middle" fill="#7da68a" font-size="11">$2</text>
-      <text x="463.2" y="398" text-anchor="middle" fill="#7da68a" font-size="11">$5</text>
-      <text x="593.4" y="398" text-anchor="middle" fill="#7da68a" font-size="11">$10</text>
-      <text x="723.6" y="398" text-anchor="middle" fill="#7da68a" font-size="11">$20</text>
+      <text x="363.3" y="398" text-anchor="middle" fill="#7da68a" font-size="11">$1</text>
+      <text x="438.2" y="398" text-anchor="middle" fill="#7da68a" font-size="11">$2</text>
+      <text x="537.2" y="398" text-anchor="middle" fill="#7da68a" font-size="11">$5</text>
+      <text x="612.0" y="398" text-anchor="middle" fill="#7da68a" font-size="11">$10</text>
+      <text x="686.9" y="398" text-anchor="middle" fill="#7da68a" font-size="11">$20</text>
               <text x="380" y="414" text-anchor="middle" fill="#7da68a" font-size="11">mean cost per task (log)</text>
-              <path d="M93.9,373.0 L240.8,351.5 L275.4,331.4 L290.1,288.8 L298.5,267.5 L320.6,164.0 L420.3,152.4 L438.3,131.1 L442.1,103.0 L515.6,67.5" fill="none" stroke="#33ff66" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.55"/>
-      <circle cx="515.6" cy="67.5" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gpt-5-5 xhigh — 70.0% @ $6.61</title></circle>
-      <circle cx="442.1" cy="103.0" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gpt-5-5 high — 62.0% @ $4.47</title></circle>
-      <circle cx="636.5" cy="119.4" r="3.5" fill="#1e5c38"><title>claude-opus-4-8 max — 58.2% @ $12.58</title></circle>
-      <circle cx="540.6" cy="121.4" r="3.5" fill="#1e5c38"><title>claude-opus-4-8 xhigh — 57.7% @ $7.55</title></circle>
-      <circle cx="438.3" cy="131.1" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gpt-5-4 xhigh — 55.5% @ $4.38</title></circle>
-      <circle cx="705.7" cy="136.9" r="3.5" fill="#1e5c38"><title>claude-opus-4-7 max — 54.2% @ $18.19</title></circle>
-      <circle cx="420.3" cy="152.4" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>claude-opus-4-8 high — 50.7% @ $3.98</title></circle>
-      <circle cx="320.6" cy="164.0" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gpt-5-5 medium — 48.0% @ $2.34</title></circle>
-      <circle cx="382.3" cy="166.8" r="3.5" fill="#1e5c38"><title>claude-opus-4-8 medium — 47.3% @ $3.25</title></circle>
-      <circle cx="564.6" cy="178.5" r="3.5" fill="#1e5c38"><title>claude-opus-4-7 xhigh — 44.7% @ $8.58</title></circle>
-      <circle cx="418.9" cy="192.3" r="3.5" fill="#1e5c38"><title>glm-5-2 max — 41.5% @ $3.95</title></circle>
-      <circle cx="456.7" cy="197.8" r="3.5" fill="#1e5c38"><title>claude-opus-4-7 high — 40.3% @ $4.83</title></circle>
-      <circle cx="481.8" cy="235.0" r="3.5" fill="#1e5c38"><title>claude-sonnet-4-6 high — 31.8% @ $5.52</title></circle>
-      <circle cx="320.6" cy="235.6" r="3.5" fill="#1e5c38"><title>claude-opus-4-7 medium — 31.6% @ $2.34</title></circle>
-      <circle cx="537.3" cy="250.1" r="3.5" fill="#1e5c38"><title>gemini-3-5-flash medium — 28.3% @ $7.42</title></circle>
-      <circle cx="477.3" cy="253.3" r="3.5" fill="#1e5c38"><title>claude-opus-4-6 max — 27.6% @ $5.39</title></circle>
-      <circle cx="298.5" cy="267.5" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gpt-5-4-mini xhigh — 24.3% @ $2.08</title></circle>
-      <circle cx="377.0" cy="269.5" r="3.5" fill="#1e5c38"><title>kimi-k2-6  — 23.9% @ $3.16</title></circle>
-      <circle cx="483.5" cy="284.6" r="3.5" fill="#1e5c38"><title>minimax-m3  — 20.4% @ $5.57</title></circle>
-      <circle cx="290.1" cy="288.8" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>mimo-v2-5-pro  — 19.5% @ $1.99</title></circle>
-      <circle cx="302.0" cy="296.6" r="3.5" fill="#1e5c38"><title>qwen3-7-max  — 17.7% @ $2.12</title></circle>
-      <circle cx="538.3" cy="297.4" r="3.5" fill="#1e5c38"><title>glm-5-1  — 17.5% @ $7.46</title></circle>
-      <circle cx="515.3" cy="316.8" r="3.5" fill="#1e5c38"><title>grok-build-0-1  — 13.1% @ $6.6</title></circle>
-      <circle cx="275.4" cy="331.4" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gemini-3-1-pro-preview  — 9.7% @ $1.84</title></circle>
-      <circle cx="431.3" cy="341.1" r="3.5" fill="#1e5c38"><title>deepseek-v4-pro  — 7.5% @ $4.22</title></circle>
-      <circle cx="240.8" cy="351.5" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gemini-3-flash-preview  — 5.1% @ $1.53</title></circle>
-      <circle cx="432.7" cy="362.4" r="3.5" fill="#1e5c38"><title>qwen3-6-plus  — 2.6% @ $4.25</title></circle>
-      <circle cx="128.2" cy="373.0" r="3.5" fill="#1e5c38"><title>claude-haiku-4-5  — 0.2% @ $0.84</title></circle>
-      <circle cx="93.9" cy="373.0" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>minimax-m2-7  — 0.2% @ $0.7</title></circle>
-      <text x="101.9" y="366.0" fill="#c2dfc9" font-size="10.5">minimax-m2-7</text>
-      <text x="248.8" y="344.5" fill="#c2dfc9" font-size="10.5">gemini-3-flash-preview</text>
-      <text x="283.4" y="324.4" fill="#c2dfc9" font-size="10.5">gemini-3-1-pro-preview</text>
-      <text x="298.1" y="281.8" fill="#c2dfc9" font-size="10.5">mimo-v2-5-pro</text>
-      <text x="306.5" y="260.5" fill="#c2dfc9" font-size="10.5">gpt-5-4-mini <tspan fill="#7da68a">xhigh</tspan></text>
-      <text x="328.6" y="157.0" fill="#c2dfc9" font-size="10.5">gpt-5-5 <tspan fill="#7da68a">medium</tspan></text>
-      <text x="428.3" y="145.4" fill="#c2dfc9" font-size="10.5">claude-opus-4-8 <tspan fill="#7da68a">high</tspan></text>
-      <text x="446.3" y="124.1" fill="#c2dfc9" font-size="10.5">gpt-5-4 <tspan fill="#7da68a">xhigh</tspan></text>
-      <text x="450.1" y="96.0" fill="#c2dfc9" font-size="10.5">gpt-5-5 <tspan fill="#7da68a">high</tspan></text>
-      <text x="523.6" y="60.5" fill="#c2dfc9" font-size="10.5">gpt-5-5 <tspan fill="#7da68a">xhigh</tspan></text>
+              <path d="M76.1,367.2 L199.8,324.6 L272.2,268.8 L304.5,220.4 L336.5,180.4 L370.6,175.6 L376.5,138.8 L410.0,125.2 L418.1,119.7 L430.4,106.9 L483.1,80.0 L492.0,72.6 L497.7,70.4 L530.5,64.6 L558.3,55.4 L601.5,54.0 L630.3,51.8" fill="none" stroke="#33ff66" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.55"/>
+      <circle cx="630.3" cy="51.8" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>claude-opus-5 max — 73.7% @ $11.84</title></circle>
+      <circle cx="601.5" cy="54.0" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>claude-opus-5 xhigh — 73.2% @ $9.07</title></circle>
+      <circle cx="558.3" cy="55.4" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>claude-opus-5 high — 72.8% @ $6.08</title></circle>
+      <circle cx="593.1" cy="56.1" r="3.5" fill="#1e5c38"><title>gpt-5-6-sol max — 72.7% @ $8.39</title></circle>
+      <circle cx="530.5" cy="64.6" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gpt-5-6-sol xhigh — 70.7% @ $4.7</title></circle>
+      <circle cx="643.7" cy="68.1" r="3.5" fill="#1e5c38"><title>claude-fable-5 xhigh — 69.9% @ $13.41</title></circle>
+      <circle cx="695.4" cy="69.0" r="3.5" fill="#1e5c38"><title>claude-fable-5 max — 69.7% @ $21.63</title></circle>
+      <circle cx="536.1" cy="69.4" r="3.5" fill="#1e5c38"><title>gpt-5-6-terra max — 69.6% @ $4.95</title></circle>
+      <circle cx="497.7" cy="70.4" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gpt-5-6-sol high — 69.4% @ $3.47</title></circle>
+      <circle cx="492.0" cy="72.6" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>claude-opus-5 medium — 68.9% @ $3.29</title></circle>
+      <circle cx="602.8" cy="73.9" r="3.5" fill="#1e5c38"><title>claude-fable-5 high — 68.6% @ $9.18</title></circle>
+      <circle cx="529.3" cy="74.3" r="3.5" fill="#1e5c38"><title>kimi-k3 max — 68.5% @ $4.65</title></circle>
+      <circle cx="483.1" cy="80.0" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gpt-5-6-luna max — 67.2% @ $3.03</title></circle>
+      <circle cx="577.0" cy="80.7" r="3.5" fill="#1e5c38"><title>gpt-5-5 xhigh — 67.0% @ $7.23</title></circle>
+      <circle cx="558.5" cy="88.0" r="3.5" fill="#1e5c38"><title>claude-fable-5 medium — 65.4% @ $6.09</title></circle>
+      <circle cx="539.3" cy="92.3" r="3.5" fill="#1e5c38"><title>gpt-5-5 high — 64.4% @ $5.1</title></circle>
+      <circle cx="430.4" cy="106.9" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gpt-5-6-sol medium — 61.1% @ $1.86</title></circle>
+      <circle cx="445.0" cy="110.7" r="3.5" fill="#1e5c38"><title>gpt-5-6-terra xhigh — 60.2% @ $2.13</title></circle>
+      <circle cx="506.4" cy="113.3" r="3.5" fill="#1e5c38"><title>claude-fable-5 low — 59.6% @ $3.76</title></circle>
+      <circle cx="642.2" cy="116.0" r="3.5" fill="#1e5c38"><title>claude-opus-4-8 max — 59.0% @ $13.22</title></circle>
+      <circle cx="418.1" cy="119.7" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>claude-opus-5 low — 58.1% @ $1.66</title></circle>
+      <circle cx="410.0" cy="125.2" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gpt-5-6-luna xhigh — 56.9% @ $1.54</title></circle>
+      <circle cx="588.1" cy="136.2" r="3.5" fill="#1e5c38"><title>claude-opus-4-8 xhigh — 54.4% @ $8.01</title></circle>
+      <circle cx="472.6" cy="137.8" r="3.5" fill="#1e5c38"><title>gpt-5-5 medium — 54.0% @ $2.75</title></circle>
+      <circle cx="716.9" cy="138.4" r="3.5" fill="#1e5c38"><title>claude-sonnet-5 max — 53.8% @ $26.4</title></circle>
+      <circle cx="376.5" cy="138.8" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gpt-5-6-terra high — 53.8% @ $1.13</title></circle>
+      <circle cx="458.8" cy="138.8" r="3.5" fill="#1e5c38"><title>grok-4-5 high — 53.8% @ $2.42</title></circle>
+      <circle cx="456.1" cy="140.7" r="3.5" fill="#1e5c38"><title>muse-spark-1-1 xhigh — 53.3% @ $2.36</title></circle>
+      <circle cx="520.4" cy="147.5" r="3.5" fill="#1e5c38"><title>claude-opus-4-8 high — 51.8% @ $4.28</title></circle>
+      <circle cx="550.4" cy="147.5" r="3.5" fill="#1e5c38"><title>gpt-5-4 xhigh — 51.8% @ $5.65</title></circle>
+      <circle cx="630.7" cy="156.7" r="3.5" fill="#1e5c38"><title>claude-sonnet-5 xhigh — 49.7% @ $11.89</title></circle>
+      <circle cx="496.8" cy="161.1" r="3.5" fill="#1e5c38"><title>claude-opus-4-8 medium — 48.7% @ $3.44</title></circle>
+      <circle cx="499.6" cy="161.6" r="3.5" fill="#1e5c38"><title>gemini-3-6-flash high — 48.6% @ $3.53</title></circle>
+      <circle cx="580.0" cy="163.0" r="3.5" fill="#1e5c38"><title>claude-sonnet-5 high — 48.2% @ $7.43</title></circle>
+      <circle cx="370.6" cy="175.6" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gpt-5-6-sol low — 45.4% @ $1.07</title></circle>
+      <circle cx="336.5" cy="180.4" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gpt-5-6-luna high — 44.3% @ $0.78</title></circle>
+      <circle cx="510.9" cy="182.5" r="3.5" fill="#1e5c38"><title>glm-5-2 max — 43.8% @ $3.92</title></circle>
+      <circle cx="452.8" cy="195.5" r="3.5" fill="#1e5c38"><title>claude-opus-4-8 low — 40.8% @ $2.29</title></circle>
+      <circle cx="515.2" cy="200.0" r="3.5" fill="#1e5c38"><title>claude-sonnet-5 medium — 39.8% @ $4.08</title></circle>
+      <circle cx="578.6" cy="210.4" r="3.5" fill="#1e5c38"><title>gemini-3-5-flash medium — 37.4% @ $7.34</title></circle>
+      <circle cx="476.1" cy="215.3" r="3.5" fill="#1e5c38"><title>glm-5-2 high — 36.3% @ $2.84</title></circle>
+      <circle cx="304.5" cy="220.4" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gpt-5-6-terra medium — 35.1% @ $0.58</title></circle>
+      <circle cx="475.3" cy="240.4" r="3.5" fill="#1e5c38"><title>kimi-k2-7-code  — 30.5% @ $2.82</title></circle>
+      <circle cx="448.0" cy="240.5" r="3.5" fill="#1e5c38"><title>claude-sonnet-5 low — 30.5% @ $2.19</title></circle>
+      <circle cx="547.9" cy="243.1" r="3.5" fill="#1e5c38"><title>claude-sonnet-4-6 high — 29.9% @ $5.52</title></circle>
+      <circle cx="383.0" cy="255.9" r="3.5" fill="#1e5c38"><title>gpt-5-5 low — 27.0% @ $1.2</title></circle>
+      <circle cx="272.2" cy="268.8" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gpt-5-6-terra low — 24.1% @ $0.43</title></circle>
+      <circle cx="606.3" cy="322.6" r="3.5" fill="#1e5c38"><title>gemini-3-1-pro-preview high — 11.8% @ $9.48</title></circle>
+      <circle cx="199.8" cy="324.6" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gpt-5-6-luna medium — 11.3% @ $0.22</title></circle>
+      <circle cx="76.1" cy="367.2" r="5" fill="#33ff66" stroke="#a4ffc0" stroke-width="1"><title>gpt-5-6-luna low — 1.6% @ $0.07</title></circle>
+      <text x="84.1" y="360.2" fill="#c2dfc9" font-size="10.5">gpt-5-6-luna <tspan fill="#7da68a">low</tspan></text>
+      <text x="207.8" y="317.6" fill="#c2dfc9" font-size="10.5">gpt-5-6-luna <tspan fill="#7da68a">medium</tspan></text>
+      <text x="280.2" y="261.8" fill="#c2dfc9" font-size="10.5">gpt-5-6-terra <tspan fill="#7da68a">low</tspan></text>
+      <text x="312.5" y="213.4" fill="#c2dfc9" font-size="10.5">gpt-5-6-terra <tspan fill="#7da68a">medium</tspan></text>
+      <text x="344.5" y="173.4" fill="#c2dfc9" font-size="10.5">gpt-5-6-luna <tspan fill="#7da68a">high</tspan></text>
+      <text x="378.6" y="168.6" fill="#c2dfc9" font-size="10.5">gpt-5-6-sol <tspan fill="#7da68a">low</tspan></text>
+      <text x="384.5" y="131.8" fill="#c2dfc9" font-size="10.5">gpt-5-6-terra <tspan fill="#7da68a">high</tspan></text>
+      <text x="418.0" y="118.2" fill="#c2dfc9" font-size="10.5">gpt-5-6-luna <tspan fill="#7da68a">xhigh</tspan></text>
+      <text x="426.1" y="112.7" fill="#c2dfc9" font-size="10.5">claude-opus-5 <tspan fill="#7da68a">low</tspan></text>
+      <text x="438.4" y="99.9" fill="#c2dfc9" font-size="10.5">gpt-5-6-sol <tspan fill="#7da68a">medium</tspan></text>
+      <text x="491.1" y="73.0" fill="#c2dfc9" font-size="10.5">gpt-5-6-luna <tspan fill="#7da68a">max</tspan></text>
+      <text x="500.0" y="65.6" fill="#c2dfc9" font-size="10.5">claude-opus-5 <tspan fill="#7da68a">medium</tspan></text>
+      <text x="505.7" y="63.4" fill="#c2dfc9" font-size="10.5">gpt-5-6-sol <tspan fill="#7da68a">high</tspan></text>
+      <text x="538.5" y="57.6" fill="#c2dfc9" font-size="10.5">gpt-5-6-sol <tspan fill="#7da68a">xhigh</tspan></text>
+      <text x="566.3" y="48.4" fill="#c2dfc9" font-size="10.5">claude-opus-5 <tspan fill="#7da68a">high</tspan></text>
+      <text x="609.5" y="47.0" fill="#c2dfc9" font-size="10.5">claude-opus-5 <tspan fill="#7da68a">xhigh</tspan></text>
+      <text x="638.3" y="44.8" fill="#c2dfc9" font-size="10.5">claude-opus-5 <tspan fill="#7da68a">max</tspan></text>
             </svg>
           </div>
           <figcaption class="chart-caption">
             Filled dots are the Pareto frontier — no other configuration is both cheaper and better.
-            Source: DeepSWE (Datacurve), data generated 2026-06-20.
+            Source: DeepSWE (Datacurve), data generated 2026-07-25.
           </figcaption>
         </figure>
 
         <h2 class="panel-title">
           <span class="panel-cmd" aria-hidden="true">$ sort -k pass@1 --desc</span>
-          <span class="panel-name">Full leaderboard — 29 configurations</span>
+          <span class="panel-name">Full leaderboard — 50 configurations</span>
         </h2>
         <table class="calc-table">
           <thead>
@@ -155,265 +332,454 @@
           </thead>
           <tbody>
             <tr class="calc-cheapest">
-              <td><a href="./pricing/gpt-5-5">gpt-5-5</a></td>
-              <td>xhigh</td>
-              <td class="calc-total">70.0%</td>
-              <td>67–73%</td>
-              <td>88.3%</td>
-              <td>$6.61</td>
-              <td>75</td>
+              <td>claude-opus-5</td>
+              <td>max</td>
+              <td class="calc-total">73.7%</td>
+              <td>70–78%</td>
+              <td>88.5%</td>
+              <td>$11.84</td>
+              <td>90.5</td>
             </tr>
             <tr class="calc-cheapest">
-              <td><a href="./pricing/gpt-5-5">gpt-5-5</a></td>
-              <td>high</td>
-              <td class="calc-total">62.0%</td>
-              <td>58–66%</td>
-              <td>84.1%</td>
-              <td>$4.47</td>
-              <td>54</td>
-            </tr>
-            <tr>
-              <td><a href="./pricing/claude-opus-4-8">claude-opus-4-8</a></td>
-              <td>max</td>
-              <td class="calc-total">58.2%</td>
-              <td>56–60%</td>
-              <td>78.8%</td>
-              <td>$12.58</td>
-              <td>104</td>
-            </tr>
-            <tr>
-              <td><a href="./pricing/claude-opus-4-8">claude-opus-4-8</a></td>
+              <td>claude-opus-5</td>
               <td>xhigh</td>
-              <td class="calc-total">57.7%</td>
-              <td>54–62%</td>
-              <td>80.5%</td>
-              <td>$7.55</td>
+              <td class="calc-total">73.2%</td>
+              <td>70–76%</td>
+              <td>85.8%</td>
+              <td>$9.07</td>
               <td>80</td>
             </tr>
             <tr class="calc-cheapest">
-              <td>gpt-5-4</td>
-              <td>xhigh</td>
-              <td class="calc-total">55.5%</td>
-              <td>53–58%</td>
-              <td>77.0%</td>
-              <td>$4.38</td>
-              <td>62</td>
-            </tr>
-            <tr>
-              <td>claude-opus-4-7</td>
-              <td>max</td>
-              <td class="calc-total">54.2%</td>
-              <td>49–59%</td>
-              <td>85.8%</td>
-              <td>$18.19</td>
-              <td>191</td>
-            </tr>
-            <tr class="calc-cheapest">
-              <td><a href="./pricing/claude-opus-4-8">claude-opus-4-8</a></td>
+              <td>claude-opus-5</td>
               <td>high</td>
-              <td class="calc-total">50.7%</td>
-              <td>48–54%</td>
-              <td>70.8%</td>
-              <td>$3.98</td>
-              <td>58</td>
-            </tr>
-            <tr class="calc-cheapest">
-              <td><a href="./pricing/gpt-5-5">gpt-5-5</a></td>
-              <td>medium</td>
-              <td class="calc-total">48.0%</td>
-              <td>45–51%</td>
-              <td>70.8%</td>
-              <td>$2.34</td>
-              <td>38.5</td>
+              <td class="calc-total">72.8%</td>
+              <td>71–75%</td>
+              <td>87.6%</td>
+              <td>$6.08</td>
+              <td>64</td>
             </tr>
             <tr>
-              <td><a href="./pricing/claude-opus-4-8">claude-opus-4-8</a></td>
-              <td>medium</td>
-              <td class="calc-total">47.3%</td>
-              <td>43–51%</td>
-              <td>68.1%</td>
-              <td>$3.25</td>
+              <td><a href="./pricing/gpt-5-6-sol">gpt-5-6-sol</a></td>
+              <td>max</td>
+              <td class="calc-total">72.7%</td>
+              <td>70–76%</td>
+              <td>85.8%</td>
+              <td>$8.39</td>
               <td>53</td>
             </tr>
-            <tr>
-              <td>claude-opus-4-7</td>
+            <tr class="calc-cheapest">
+              <td><a href="./pricing/gpt-5-6-sol">gpt-5-6-sol</a></td>
               <td>xhigh</td>
-              <td class="calc-total">44.7%</td>
-              <td>42–48%</td>
+              <td class="calc-total">70.7%</td>
+              <td>70–72%</td>
+              <td>85.8%</td>
+              <td>$4.70</td>
+              <td>39</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/claude-fable-5">claude-fable-5</a></td>
+              <td>xhigh</td>
+              <td class="calc-total">69.9%</td>
+              <td>67–73%</td>
+              <td>88.5%</td>
+              <td>$13.41</td>
+              <td>61.5</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/claude-fable-5">claude-fable-5</a></td>
+              <td>max</td>
+              <td class="calc-total">69.7%</td>
+              <td>66–74%</td>
+              <td>84.1%</td>
+              <td>$21.63</td>
+              <td>79</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/gpt-5-6-terra">gpt-5-6-terra</a></td>
+              <td>max</td>
+              <td class="calc-total">69.6%</td>
+              <td>67–72%</td>
+              <td>88.5%</td>
+              <td>$4.95</td>
+              <td>71</td>
+            </tr>
+            <tr class="calc-cheapest">
+              <td><a href="./pricing/gpt-5-6-sol">gpt-5-6-sol</a></td>
+              <td>high</td>
+              <td class="calc-total">69.4%</td>
+              <td>68–71%</td>
+              <td>86.7%</td>
+              <td>$3.47</td>
+              <td>32</td>
+            </tr>
+            <tr class="calc-cheapest">
+              <td>claude-opus-5</td>
+              <td>medium</td>
+              <td class="calc-total">68.9%</td>
+              <td>68–70%</td>
+              <td>89.4%</td>
+              <td>$3.29</td>
+              <td>43</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/claude-fable-5">claude-fable-5</a></td>
+              <td>high</td>
+              <td class="calc-total">68.6%</td>
+              <td>67–70%</td>
+              <td>86.7%</td>
+              <td>$9.18</td>
+              <td>49</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/kimi-k3">kimi-k3</a></td>
+              <td>max</td>
+              <td class="calc-total">68.5%</td>
+              <td>64–73%</td>
+              <td>89.4%</td>
+              <td>$4.65</td>
+              <td>88</td>
+            </tr>
+            <tr class="calc-cheapest">
+              <td><a href="./pricing/gpt-5-6-luna">gpt-5-6-luna</a></td>
+              <td>max</td>
+              <td class="calc-total">67.2%</td>
+              <td>63–71%</td>
+              <td>90.3%</td>
+              <td>$3.03</td>
+              <td>92.5</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/gpt-5-5">gpt-5-5</a></td>
+              <td>xhigh</td>
+              <td class="calc-total">67.0%</td>
+              <td>61–74%</td>
+              <td>88.5%</td>
+              <td>$7.23</td>
+              <td>76.5</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/claude-fable-5">claude-fable-5</a></td>
+              <td>medium</td>
+              <td class="calc-total">65.4%</td>
+              <td>61–70%</td>
+              <td>83.2%</td>
+              <td>$6.09</td>
+              <td>41</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/gpt-5-5">gpt-5-5</a></td>
+              <td>high</td>
+              <td class="calc-total">64.4%</td>
+              <td>61–68%</td>
+              <td>90.3%</td>
+              <td>$5.10</td>
+              <td>60</td>
+            </tr>
+            <tr class="calc-cheapest">
+              <td><a href="./pricing/gpt-5-6-sol">gpt-5-6-sol</a></td>
+              <td>medium</td>
+              <td class="calc-total">61.1%</td>
+              <td>59–63%</td>
+              <td>80.5%</td>
+              <td>$1.86</td>
+              <td>26</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/gpt-5-6-terra">gpt-5-6-terra</a></td>
+              <td>xhigh</td>
+              <td class="calc-total">60.2%</td>
+              <td>58–62%</td>
+              <td>80.5%</td>
+              <td>$2.13</td>
+              <td>39</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/claude-fable-5">claude-fable-5</a></td>
+              <td>low</td>
+              <td class="calc-total">59.6%</td>
+              <td>57–62%</td>
+              <td>81.4%</td>
+              <td>$3.76</td>
+              <td>29</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/claude-opus-4-8">claude-opus-4-8</a></td>
+              <td>max</td>
+              <td class="calc-total">59.0%</td>
+              <td>57–61%</td>
+              <td>79.3%</td>
+              <td>$13.22</td>
+              <td>116</td>
+            </tr>
+            <tr class="calc-cheapest">
+              <td>claude-opus-5</td>
+              <td>low</td>
+              <td class="calc-total">58.1%</td>
+              <td>56–60%</td>
+              <td>85.0%</td>
+              <td>$1.66</td>
+              <td>29</td>
+            </tr>
+            <tr class="calc-cheapest">
+              <td><a href="./pricing/gpt-5-6-luna">gpt-5-6-luna</a></td>
+              <td>xhigh</td>
+              <td class="calc-total">56.9%</td>
+              <td>55–59%</td>
+              <td>78.8%</td>
+              <td>$1.54</td>
+              <td>63</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/claude-opus-4-8">claude-opus-4-8</a></td>
+              <td>xhigh</td>
+              <td class="calc-total">54.4%</td>
+              <td>51–58%</td>
+              <td>80.5%</td>
+              <td>$8.01</td>
+              <td>90</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/gpt-5-5">gpt-5-5</a></td>
+              <td>medium</td>
+              <td class="calc-total">54.0%</td>
+              <td>51–57%</td>
+              <td>77.9%</td>
+              <td>$2.75</td>
+              <td>43</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/claude-sonnet-5">claude-sonnet-5</a></td>
+              <td>max</td>
+              <td class="calc-total">53.8%</td>
+              <td>50–58%</td>
+              <td>78.8%</td>
+              <td>$26.40</td>
+              <td>260</td>
+            </tr>
+            <tr class="calc-cheapest">
+              <td><a href="./pricing/gpt-5-6-terra">gpt-5-6-terra</a></td>
+              <td>high</td>
+              <td class="calc-total">53.8%</td>
+              <td>49–58%</td>
+              <td>80.5%</td>
+              <td>$1.13</td>
+              <td>31</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/grok-4-5">grok-4-5</a></td>
+              <td>high</td>
+              <td class="calc-total">53.8%</td>
+              <td>51–56%</td>
+              <td>77.9%</td>
+              <td>$2.42</td>
+              <td>56</td>
+            </tr>
+            <tr>
+              <td>muse-spark-1-1</td>
+              <td>xhigh</td>
+              <td class="calc-total">53.3%</td>
+              <td>50–56%</td>
+              <td>79.7%</td>
+              <td>$2.36</td>
+              <td>86</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/claude-opus-4-8">claude-opus-4-8</a></td>
+              <td>high</td>
+              <td class="calc-total">51.8%</td>
+              <td>47–56%</td>
+              <td>77.9%</td>
+              <td>$4.28</td>
+              <td>67</td>
+            </tr>
+            <tr>
+              <td>gpt-5-4</td>
+              <td>xhigh</td>
+              <td class="calc-total">51.8%</td>
+              <td>50–53%</td>
+              <td>77.9%</td>
+              <td>$5.65</td>
+              <td>63</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/claude-sonnet-5">claude-sonnet-5</a></td>
+              <td>xhigh</td>
+              <td class="calc-total">49.7%</td>
+              <td>46–53%</td>
+              <td>75.2%</td>
+              <td>$11.89</td>
+              <td>174</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/claude-opus-4-8">claude-opus-4-8</a></td>
+              <td>medium</td>
+              <td class="calc-total">48.7%</td>
+              <td>46–51%</td>
               <td>76.1%</td>
-              <td>$8.58</td>
-              <td>115</td>
+              <td>$3.44</td>
+              <td>60</td>
+            </tr>
+            <tr>
+              <td>gemini-3-6-flash</td>
+              <td>high</td>
+              <td class="calc-total">48.6%</td>
+              <td>44–54%</td>
+              <td>76.1%</td>
+              <td>$3.53</td>
+              <td>95</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/claude-sonnet-5">claude-sonnet-5</a></td>
+              <td>high</td>
+              <td class="calc-total">48.2%</td>
+              <td>44–53%</td>
+              <td>79.7%</td>
+              <td>$7.43</td>
+              <td>138</td>
+            </tr>
+            <tr class="calc-cheapest">
+              <td><a href="./pricing/gpt-5-6-sol">gpt-5-6-sol</a></td>
+              <td>low</td>
+              <td class="calc-total">45.4%</td>
+              <td>43–48%</td>
+              <td>71.7%</td>
+              <td>$1.07</td>
+              <td>21</td>
+            </tr>
+            <tr class="calc-cheapest">
+              <td><a href="./pricing/gpt-5-6-luna">gpt-5-6-luna</a></td>
+              <td>high</td>
+              <td class="calc-total">44.3%</td>
+              <td>41–47%</td>
+              <td>75.2%</td>
+              <td>$0.78</td>
+              <td>44</td>
             </tr>
             <tr>
               <td>glm-5-2</td>
               <td>max</td>
-              <td class="calc-total">41.5%</td>
-              <td>39–44%</td>
-              <td>69.9%</td>
-              <td>$3.95</td>
-              <td>115</td>
+              <td class="calc-total">43.8%</td>
+              <td>42–46%</td>
+              <td>77.0%</td>
+              <td>$3.92</td>
+              <td>123</td>
             </tr>
             <tr>
-              <td>claude-opus-4-7</td>
-              <td>high</td>
-              <td class="calc-total">40.3%</td>
-              <td>37–44%</td>
-              <td>69.0%</td>
-              <td>$4.83</td>
-              <td>77</td>
+              <td><a href="./pricing/claude-opus-4-8">claude-opus-4-8</a></td>
+              <td>low</td>
+              <td class="calc-total">40.8%</td>
+              <td>39–42%</td>
+              <td>68.1%</td>
+              <td>$2.29</td>
+              <td>47</td>
             </tr>
             <tr>
-              <td>claude-sonnet-4-6</td>
-              <td>high</td>
-              <td class="calc-total">31.8%</td>
-              <td>30–34%</td>
-              <td>62.0%</td>
-              <td>$5.52</td>
-              <td>121</td>
-            </tr>
-            <tr>
-              <td>claude-opus-4-7</td>
+              <td><a href="./pricing/claude-sonnet-5">claude-sonnet-5</a></td>
               <td>medium</td>
-              <td class="calc-total">31.6%</td>
-              <td>28–36%</td>
-              <td>58.4%</td>
-              <td>$2.34</td>
-              <td>50</td>
+              <td class="calc-total">39.8%</td>
+              <td>37–43%</td>
+              <td>64.6%</td>
+              <td>$4.08</td>
+              <td>100.5</td>
             </tr>
             <tr>
               <td>gemini-3-5-flash</td>
               <td>medium</td>
-              <td class="calc-total">28.3%</td>
-              <td>25–32%</td>
+              <td class="calc-total">37.4%</td>
+              <td>36–39%</td>
+              <td>66.4%</td>
+              <td>$7.34</td>
+              <td>82</td>
+            </tr>
+            <tr>
+              <td>glm-5-2</td>
+              <td>high</td>
+              <td class="calc-total">36.3%</td>
+              <td>32–41%</td>
+              <td>68.1%</td>
+              <td>$2.84</td>
+              <td>112</td>
+            </tr>
+            <tr class="calc-cheapest">
+              <td><a href="./pricing/gpt-5-6-terra">gpt-5-6-terra</a></td>
+              <td>medium</td>
+              <td class="calc-total">35.1%</td>
+              <td>32–38%</td>
+              <td>60.2%</td>
+              <td>$0.58</td>
+              <td>24</td>
+            </tr>
+            <tr>
+              <td>kimi-k2-7-code</td>
+              <td>—</td>
+              <td class="calc-total">30.5%</td>
+              <td>30–31%</td>
+              <td>61.1%</td>
+              <td>$2.82</td>
+              <td>139</td>
+            </tr>
+            <tr>
+              <td><a href="./pricing/claude-sonnet-5">claude-sonnet-5</a></td>
+              <td>low</td>
+              <td class="calc-total">30.5%</td>
+              <td>29–32%</td>
+              <td>57.5%</td>
+              <td>$2.19</td>
+              <td>70</td>
+            </tr>
+            <tr>
+              <td>claude-sonnet-4-6</td>
+              <td>high</td>
+              <td class="calc-total">29.9%</td>
+              <td>26–34%</td>
               <td>56.6%</td>
-              <td>$7.42</td>
-              <td>71</td>
+              <td>$5.52</td>
+              <td>124</td>
             </tr>
             <tr>
-              <td>claude-opus-4-6</td>
-              <td>max</td>
-              <td class="calc-total">27.6%</td>
-              <td>24–31%</td>
-              <td>50.4%</td>
-              <td>$5.39</td>
-              <td>94</td>
+              <td><a href="./pricing/gpt-5-5">gpt-5-5</a></td>
+              <td>low</td>
+              <td class="calc-total">27.0%</td>
+              <td>25–29%</td>
+              <td>47.8%</td>
+              <td>$1.20</td>
+              <td>27</td>
             </tr>
             <tr class="calc-cheapest">
-              <td>gpt-5-4-mini</td>
-              <td>xhigh</td>
-              <td class="calc-total">24.3%</td>
-              <td>21–27%</td>
-              <td>46.0%</td>
-              <td>$2.08</td>
-              <td>83</td>
+              <td><a href="./pricing/gpt-5-6-terra">gpt-5-6-terra</a></td>
+              <td>low</td>
+              <td class="calc-total">24.1%</td>
+              <td>23–25%</td>
+              <td>44.3%</td>
+              <td>$0.43</td>
+              <td>20</td>
             </tr>
             <tr>
-              <td>kimi-k2-6</td>
-              <td>—</td>
-              <td class="calc-total">23.9%</td>
-              <td>21–26%</td>
-              <td>48.7%</td>
-              <td>$3.16</td>
-              <td>136.5</td>
-            </tr>
-            <tr>
-              <td>minimax-m3</td>
-              <td>—</td>
-              <td class="calc-total">20.4%</td>
-              <td>17–24%</td>
-              <td>48.7%</td>
-              <td>$5.57</td>
-              <td>311</td>
-            </tr>
-            <tr class="calc-cheapest">
-              <td>mimo-v2-5-pro</td>
-              <td>—</td>
-              <td class="calc-total">19.5%</td>
-              <td>18–21%</td>
-              <td>45.1%</td>
-              <td>$1.99</td>
-              <td>114.5</td>
-            </tr>
-            <tr>
-              <td>qwen3-7-max</td>
-              <td>—</td>
-              <td class="calc-total">17.7%</td>
-              <td>16–19%</td>
-              <td>41.6%</td>
-              <td>$2.12</td>
-              <td>105</td>
-            </tr>
-            <tr>
-              <td>glm-5-1</td>
-              <td>—</td>
-              <td class="calc-total">17.5%</td>
-              <td>17–18%</td>
-              <td>38.9%</td>
-              <td>$7.46</td>
-              <td>168</td>
-            </tr>
-            <tr>
-              <td>grok-build-0-1</td>
-              <td>—</td>
-              <td class="calc-total">13.1%</td>
-              <td>11–16%</td>
-              <td>29.2%</td>
-              <td>$6.60</td>
-              <td>170</td>
-            </tr>
-            <tr class="calc-cheapest">
               <td>gemini-3-1-pro-preview</td>
-              <td>—</td>
-              <td class="calc-total">9.7%</td>
-              <td>7–13%</td>
-              <td>24.8%</td>
-              <td>$1.84</td>
-              <td>67</td>
-            </tr>
-            <tr>
-              <td><a href="./pricing/deepseek-v4-pro">deepseek-v4-pro</a></td>
-              <td>—</td>
-              <td class="calc-total">7.5%</td>
-              <td>5–10%</td>
-              <td>18.6%</td>
-              <td>$4.22</td>
-              <td>103.5</td>
+              <td>high</td>
+              <td class="calc-total">11.8%</td>
+              <td>9–14%</td>
+              <td>28.3%</td>
+              <td>$9.48</td>
+              <td>77</td>
             </tr>
             <tr class="calc-cheapest">
-              <td>gemini-3-flash-preview</td>
-              <td>—</td>
-              <td class="calc-total">5.1%</td>
-              <td>3–8%</td>
-              <td>15.0%</td>
-              <td>$1.53</td>
-              <td>54</td>
-            </tr>
-            <tr>
-              <td>qwen3-6-plus</td>
-              <td>—</td>
-              <td class="calc-total">2.6%</td>
-              <td>1–4%</td>
-              <td>9.7%</td>
-              <td>$4.25</td>
-              <td>158</td>
-            </tr>
-            <tr>
-              <td>claude-haiku-4-5</td>
-              <td>—</td>
-              <td class="calc-total">0.2%</td>
-              <td>0–1%</td>
-              <td>0.9%</td>
-              <td>$0.84</td>
-              <td>103</td>
+              <td><a href="./pricing/gpt-5-6-luna">gpt-5-6-luna</a></td>
+              <td>medium</td>
+              <td class="calc-total">11.3%</td>
+              <td>10–12%</td>
+              <td>27.4%</td>
+              <td>$0.22</td>
+              <td>22</td>
             </tr>
             <tr class="calc-cheapest">
-              <td>minimax-m2-7</td>
-              <td>—</td>
-              <td class="calc-total">0.2%</td>
-              <td>0–1%</td>
-              <td>0.9%</td>
-              <td>$0.70</td>
-              <td>116</td>
+              <td><a href="./pricing/gpt-5-6-luna">gpt-5-6-luna</a></td>
+              <td>low</td>
+              <td class="calc-total">1.6%</td>
+              <td>1–2%</td>
+              <td>4.4%</td>
+              <td>$0.07</td>
+              <td>12</td>
             </tr>
           </tbody>
         </table>
@@ -426,12 +792,20 @@
           <p>pass@1 is attempt pass rate over scored rollout attempts. pass@4 is tasks with at least one passing rollout divided by tasks attempted. Context-window failures and agent timeouts are scored failures; provider/verifier/network errors are excluded. Efficiency aggregates are over every scored attempt.</p>
           <p>Every DeepSWE rollout across imported Pier jobs, grouped by configuration (harness + model + reasoning effort)</p>
           <p>
-            Reasoning effort is a per-run setting, not a different model — the same model at
-            <code>max</code> and <code>medium</code> is two rows here, and the gap between them is
-            often larger than the gap between vendors. That is the practical lesson:
-            <strong>effort tuning moves both score and bill more than model choice does</strong>,
-            and at the top of the range you pay roughly 2.8× more per task than the cheapest
-            frontier-quality configuration.
+            Reasoning effort is a per-run setting, not a different model — and it moves the numbers
+            as much as switching vendors does. The widest case here is
+            <strong>gpt-5-5</strong>: 27.0%
+            at <code>low</code> for $1.20
+            versus 67.0% at
+            <code>xhigh</code> for $7.23 —
+            40.1 points of pass rate for
+            6.0× the bill, same
+            model. The practical lesson: <strong>tune effort before you switch vendors</strong>.
+            Best value above a 60% bar is
+            <strong>gpt-5-6-sol medium</strong> at
+            61.1% for $1.86
+            (32.8 points per dollar),
+            while the top score costs $11.84.
           </p>
           <p class="readme-links">
             <a href="https://deepswe.datacurve.ai/" target="_blank" rel="noopener">DeepSWE leaderboard by Datacurve (original source)</a>
