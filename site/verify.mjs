@@ -187,6 +187,19 @@ for (const [file, html] of pages) {
 }
 ok(`pages: ${pages.size} html files pass TDH/canonical/structured-data checks`);
 
+// every top-level page must be reachable from every page's chrome —
+// this is what caught /benchmark being orphaned from the nav
+const NAV_SLUGS = ["what-is-eacc", "timeline", "pricing", "benchmark", "calculator", "api"];
+for (const [file, html] of pages) {
+  for (const slug of NAV_SLUGS) {
+    const rel = file.includes("/") ? `\\.\\./${slug}` : `\\./${slug}`;
+    if (!new RegExp(`href="${rel}"`).test(html)) {
+      fail(`${file}: no chrome link to /${slug} — page would be orphaned`);
+    }
+  }
+}
+ok(`nav: all ${NAV_SLUGS.length} top-level pages linked from every page`);
+
 // ── 3. link graph: every internal href resolves ──────────────────────────
 const ids = new Map(
   [...pages].map(([f, html]) => [f, new Set([...html.matchAll(/id="([^"]+)"/g)].map((m) => m[1]))])

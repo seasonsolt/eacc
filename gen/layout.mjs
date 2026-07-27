@@ -4,6 +4,8 @@
 
 const SITE = "https://e-acc.ai";
 
+import { navLinks, footerLinks } from "./nav.mjs";
+
 export function layout({ slug, title, description, h1Cmd, h1Text, jsonLd, body, headExtra = "" }) {
   const canonical = slug === "index" ? `${SITE}/` : `${SITE}/${slug}`;
   // nested slugs (pricing/gpt-5-5) load shared assets from the site root
@@ -54,11 +56,7 @@ ${headExtra}  </head>
       <span class="statusbar-sep" aria-hidden="true">─</span>
       <span class="statusbar-tty" aria-hidden="true">tty1</span>
       <nav class="statusbar-nav" aria-label="Sections">
-        <a href="${base}what-is-eacc">e/acc?</a>
-        <a href="${base}timeline">timeline</a>
-        <a href="${base}pricing">pricing</a>
-        <a href="${base}calculator">calculator</a>
-        <a href="${base}api">api</a>
+${navLinks(base)}
       </nav>
     </header>
 
@@ -109,16 +107,7 @@ ${body}
     <footer class="site-footer">
       <a href="${base}">home</a>
       <span aria-hidden="true">·</span>
-      <a href="${base}what-is-eacc">what is e/acc</a>
-      <span aria-hidden="true">·</span>
-      <a href="${base}timeline">AI timeline</a>
-      <span aria-hidden="true">·</span>
-      <a href="${base}pricing">LLM pricing</a>
-      <span aria-hidden="true">·</span>
-      <a href="${base}calculator">token calculator</a>
-      <span aria-hidden="true">·</span>
-      <a href="${base}api">API &amp; RSS</a>
-      <span aria-hidden="true">·</span>
+${footerLinks(base)}
       <a href="mailto:hello@e-acc.ai">hello@e-acc.ai</a>
     </footer>
     <script src="${base}guard.js" defer></script>
