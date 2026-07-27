@@ -710,3 +710,49 @@ echo done
   color: var(--amber);
   word-break: break-word;
 }
+
+/* ── benchmark scatter ────────────────────────────────────────────────── */
+.bench-chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.bench-series { transition: opacity 120ms ease; }
+.bench-chart.is-hovering .bench-series { opacity: 0.18; }
+.bench-chart.is-hovering .bench-series.is-active { opacity: 1; }
+.bench-series circle { transition: r 100ms ease; cursor: pointer; }
+.bench-series.is-active circle { r: 6; }
+.bench-hit { fill: transparent; cursor: pointer; }
+.bench-readout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.2rem;
+  align-items: baseline;
+  min-height: 1.6em;
+  margin-top: var(--space-1);
+  font-size: var(--fs-small);
+  color: var(--text-dim);
+}
+.bench-readout strong { color: var(--phosphor-bright); font-weight: 700; }
+.bench-readout .bench-eff { color: var(--amber); }
+.bench-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  color: var(--text-dim);
+}
+.bench-legend button {
+  font: inherit;
+  background: none;
+  border: 0;
+  padding: 0.1rem 0;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.bench-legend button[aria-pressed="true"] { color: var(--text); }
+.bench-legend button[aria-pressed="false"] { opacity: 0.4; }
+.bench-swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+@media (prefers-reduced-motion: reduce) {
+  .bench-series, .bench-series circle { transition: none; }
+}

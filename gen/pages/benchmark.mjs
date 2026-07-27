@@ -31,66 +31,24 @@ for (const r of byCost) {
   }
 }
 
-// ── scatter: pass@1 vs cost, log-x ────────────────────────────────────────
-const W = 760;
-const H = 420;
-const PAD = { top: 24, right: 28, bottom: 46, left: 52 };
-const costs = bench.runs.map((r) => r.mean_cost_usd).filter((c) => c > 0);
-const xMin = Math.log10(Math.min(...costs) * 0.8);
-const xMax = Math.log10(Math.max(...costs) * 1.15);
-const x = (c) => PAD.left + ((Math.log10(c) - xMin) / (xMax - xMin)) * (W - PAD.left - PAD.right);
-const y = (p) => PAD.top + (1 - p / 0.8) * (H - PAD.top - PAD.bottom);
-
-const gridlines = [0, 0.2, 0.4, 0.6, 0.8]
-  .map(
-    (p) => `      <line x1="${PAD.left}" y1="${y(p).toFixed(1)}" x2="${W - PAD.right}" y2="${y(p).toFixed(1)}" stroke="#0d2d1c" stroke-width="1"/>
-      <text x="${PAD.left - 8}" y="${(y(p) + 4).toFixed(1)}" text-anchor="end" fill="#7da68a" font-size="11">${Math.round(p * 100)}%</text>`
-  )
-  .join("\n");
-
-const xticks = [1, 2, 5, 10, 20]
-  .filter((c) => Math.log10(c) >= xMin && Math.log10(c) <= xMax)
-  .map(
-    (c) => `      <text x="${x(c).toFixed(1)}" y="${H - 22}" text-anchor="middle" fill="#7da68a" font-size="11">$${c}</text>`
-  )
-  .join("\n");
-
-const frontierPath = byCost
-  .filter((r) => frontier.has(r))
-  .map((r, i) => `${i === 0 ? "M" : "L"}${x(r.mean_cost_usd).toFixed(1)},${y(r.pass_at_1).toFixed(1)}`)
-  .join(" ");
-
-const dots = bench.runs
-  .map((r) => {
-    const on = frontier.has(r);
-    return `      <circle cx="${x(r.mean_cost_usd).toFixed(1)}" cy="${y(r.pass_at_1).toFixed(1)}" r="${on ? 5 : 3.5}" fill="${on ? "#33ff66" : "#1e5c38"}"${on ? ' stroke="#a4ffc0" stroke-width="1"' : ""}><title>${esc(r.model)} ${esc(r.effort || "")} — ${(r.pass_at_1 * 100).toFixed(1)}% @ $${r.mean_cost_usd}</title></circle>`;
-  })
-  .join("\n");
-
-const labels = byCost
-  .filter((r) => frontier.has(r))
-  .map(
-    (r) =>
-      `      <text x="${(x(r.mean_cost_usd) + 8).toFixed(1)}" y="${(y(r.pass_at_1) - 7).toFixed(1)}" fill="#c2dfc9" font-size="10.5">${esc(r.model)}${r.effort ? ` <tspan fill="#7da68a">${esc(r.effort)}</tspan>` : ""}</text>`
-  )
-  .join("\n");
-
 // best configuration per model — the "which model should I use" answer
 const bestByModel = [];
-const seen = new Set();
+const seenModels = new Set();
 for (const r of bench.runs) {
-  if (!seen.has(r.model)) {
-    seen.add(r.model);
+  if (!seenModels.has(r.model)) {
+    seenModels.add(r.model);
     bestByModel.push(r);
   }
 }
 
-// biggest effort spread within one model: the page's central insight
+// group every configuration by model: powers both the effort curves and the
+// spread insight below
 const byModel = new Map();
 for (const r of bench.runs) {
   if (!byModel.has(r.model)) byModel.set(r.model, []);
   byModel.get(r.model).push(r);
 }
+
 let spreadCase = null;
 for (const [model, rs] of byModel) {
   // compare only usable configurations — a degenerate low-effort run that
@@ -108,16 +66,104 @@ const valuePick = bench.runs
   .filter((r) => r.pass_at_1 > 0.6)
   .sort((a, b) => b.pass_at_1 / b.mean_cost_usd - a.pass_at_1 / a.mean_cost_usd)[0];
 
+const top = bench.runs[0];
+
+// ── scatter: pass@1 vs cost, log-x, one series per model ──────────────────
+// Vendors get distinct hues; a model's effort tiers connect into a curve so
+// the cost/quality trade within one model reads at a glance.
+const VENDOR = [
+  [/^gpt-/, "OpenAI", "#33ff66"],
+  [/^claude-/, "Anthropic", "#ffb347"],
+  [/^gemini-/, "Google", "#4db8ff"],
+  [/^kimi-/, "Moonshot", "#ff6b8a"],
+  [/^grok-/, "xAI", "#b98cff"],
+  [/^glm-/, "Zhipu", "#5ce0d8"],
+];
+const vendorOf = (model) => {
+  const hit = VENDOR.find(([re]) => re.test(model));
+  return hit ? { name: hit[1], color: hit[2] } : { name: "Other", color: "#9aa8a0" };
+};
+const vendorsUsed = [...new Set(bench.runs.map((r) => vendorOf(r.model).name))].map(
+  (name) => ({ name, color: (VENDOR.find((v) => v[1] === name) || [, , "#9aa8a0"])[2] })
+);
+
+const W = 900;
+const H = 500;
+const PAD = { top: 26, right: 120, bottom: 52, left: 58 };
+const costs = bench.runs.map((r) => r.mean_cost_usd).filter((c) => c > 0);
+const xMin = Math.log10(Math.min(...costs) * 0.75);
+const xMax = Math.log10(Math.max(...costs) * 1.2);
+const yTop = 0.8;
+const x = (c) => PAD.left + ((Math.log10(c) - xMin) / (xMax - xMin)) * (W - PAD.left - PAD.right);
+const y = (p) => PAD.top + (1 - p / yTop) * (H - PAD.top - PAD.bottom);
+
+const gridlines = [0, 0.2, 0.4, 0.6, 0.8]
+  .map(
+    (p) => `      <line x1="${PAD.left}" y1="${y(p).toFixed(1)}" x2="${W - PAD.right}" y2="${y(p).toFixed(1)}" stroke="#0d2d1c" stroke-width="1"/>
+      <text x="${PAD.left - 9}" y="${(y(p) + 4).toFixed(1)}" text-anchor="end" fill="#7da68a" font-size="12">${Math.round(p * 100)}%</text>`
+  )
+  .join("\n");
+
+const xticks = [0.5, 1, 2, 5, 10, 20]
+  .filter((c) => Math.log10(c) >= xMin && Math.log10(c) <= xMax)
+  .map(
+    (c) => `      <line x1="${x(c).toFixed(1)}" y1="${PAD.top}" x2="${x(c).toFixed(1)}" y2="${(H - PAD.bottom).toFixed(1)}" stroke="#0d2d1c" stroke-width="1" opacity="0.6"/>
+      <text x="${x(c).toFixed(1)}" y="${H - 30}" text-anchor="middle" fill="#7da68a" font-size="12">$${c}</text>`
+  )
+  .join("\n");
+
+// one <g> per model: effort curve + dots + a fat invisible hit path
+// label only the leading model per vendor — 18 labels collide, 6 read cleanly
+const labelled = new Set();
+for (const v of vendorsUsed) {
+  const best = bench.runs.find((r) => vendorOf(r.model).name === v.name);
+  if (best) labelled.add(best.model);
+}
+
+const labelOrder = [...labelled];
+const seriesSvg = [...byModel.entries()]
+  .map(([model, rs]) => {
+    const labelRank = labelOrder.indexOf(model);
+    const { name: vendor, color } = vendorOf(model);
+    const pts = [...rs].sort((a, b) => a.mean_cost_usd - b.mean_cost_usd);
+    const d = pts.map((r, i) => `${i === 0 ? "M" : "L"}${x(r.mean_cost_usd).toFixed(1)},${y(r.pass_at_1).toFixed(1)}`).join(" ");
+    const best = pts.reduce((a, b) => (b.pass_at_1 > a.pass_at_1 ? b : a));
+    const dotsSvg = pts
+      .map(
+        (r) =>
+          `        <circle cx="${x(r.mean_cost_usd).toFixed(1)}" cy="${y(r.pass_at_1).toFixed(1)}" r="4" fill="${color}" fill-opacity="${frontier.has(r) ? 1 : 0.55}" stroke="${frontier.has(r) ? "#e7ffec" : "none"}" stroke-width="${frontier.has(r) ? 1 : 0}"><title>${esc(model)} ${esc(r.effort || "")} — ${(r.pass_at_1 * 100).toFixed(1)}% at $${r.mean_cost_usd.toFixed(2)}</title></circle>`
+      )
+      .join("\n");
+    // plain delimited payload — no markup inside an attribute
+    const readout = pts
+      .map((r) => `${r.effort || "—"}|${(r.pass_at_1 * 100).toFixed(1)}|${r.mean_cost_usd.toFixed(2)}`)
+      .join(";");
+    return `      <g class="bench-series" tabindex="0" role="listitem" data-vendor="${esc(vendor)}" aria-label="${esc(model)}: ${pts.length} configuration${pts.length > 1 ? "s" : ""}, best ${(best.pass_at_1 * 100).toFixed(1)} percent at $${best.mean_cost_usd.toFixed(2)}" data-model="${esc(model)}" data-readout="${esc(readout)}">
+${pts.length > 1 ? `        <path d="${d}" fill="none" stroke="${color}" stroke-width="1.5" stroke-opacity="0.45" stroke-linejoin="round"/>\n        <path class="bench-hit" d="${d}" fill="none" stroke="transparent" stroke-width="16"/>` : ""}
+${dotsSvg}
+${labelled.has(model) ? `        <text x="${(x(best.mean_cost_usd) + 11).toFixed(1)}" y="${(y(best.pass_at_1) + 4 + (labelRank % 2 ? 13 : -6)).toFixed(1)}" fill="${color}" font-size="11.5" paint-order="stroke" stroke="#030806" stroke-width="3.5" stroke-linejoin="round">${esc(model)}</text>` : ""}
+      </g>`;
+  })
+  .join("\n");
+
+const legendSvg = vendorsUsed
+  .map(
+    (v) =>
+      `        <button type="button" data-vendor="${esc(v.name)}" aria-pressed="true"><span class="bench-swatch" style="background:${v.color}"></span>${esc(v.name)}</button>`
+  )
+  .join("\n");
+
 const bestRows = bestByModel
   .map((r) => {
     const slug = slugFor(r.model);
     const name = slug ? `<a href="./pricing/${slug}">${esc(r.model)}</a>` : esc(r.model);
+    const { color } = vendorOf(r.model);
     return `            <tr>
-              <td>${name}</td>
+              <td><span class="bench-swatch" style="background:${color}"></span> ${name}</td>
               <td>${esc(r.effort || "—")}</td>
               <td class="calc-total">${(r.pass_at_1 * 100).toFixed(1)}%</td>
               <td>$${r.mean_cost_usd.toFixed(2)}</td>
-              <td>${(r.pass_at_1 * 100 / r.mean_cost_usd).toFixed(1)}</td>
+              <td>${((r.pass_at_1 * 100) / r.mean_cost_usd).toFixed(1)}</td>
             </tr>`;
   })
   .join("\n");
@@ -138,7 +184,7 @@ const rows = bench.runs
   })
   .join("\n");
 
-const top = bench.runs[0];
+
 const cheapestOnFrontier = byCost.find((r) => frontier.has(r) && r.pass_at_1 > 0.4);
 const spread = (top.mean_cost_usd / (cheapestOnFrontier?.mean_cost_usd || top.mean_cost_usd)).toFixed(1);
 
@@ -188,19 +234,20 @@ ${bestRows}
           <span class="panel-name">Capability versus cost per task</span>
         </h2>
         <figure class="chart-frame">
-          <div class="price-chart" role="img" aria-label="Scatter plot: agentic task pass rate versus average cost per task, log scale. The Pareto frontier runs from cheap low-scoring configurations up to ${esc(top.model)} at ${(top.pass_at_1 * 100).toFixed(0)} percent.">
-            <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <div class="bench-chart" id="bench-chart" role="list" aria-label="Benchmark configurations by vendor: pass rate versus cost per task">
+            <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
 ${gridlines}
 ${xticks}
-              <text x="${(W / 2).toFixed(0)}" y="${H - 6}" text-anchor="middle" fill="#7da68a" font-size="11">mean cost per task (log)</text>
-              <path d="${frontierPath}" fill="none" stroke="#33ff66" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.55"/>
-${dots}
-${labels}
+              <text x="${((W - PAD.right + PAD.left) / 2).toFixed(0)}" y="${H - 8}" text-anchor="middle" fill="#7da68a" font-size="12">mean cost per task, log scale</text>
+${seriesSvg}
             </svg>
           </div>
+          <p class="bench-readout" id="bench-readout">Hover or tab a model to isolate its effort curve — connected dots are the same model at different reasoning efforts. Outlined dots sit on the Pareto frontier.</p>
+          <div class="bench-legend">
+${legendSvg}
+          </div>
           <figcaption class="chart-caption">
-            Filled dots are the Pareto frontier — no other configuration is both cheaper and better.
-            Source: ${esc(bench.source.name)} (${esc(bench.source.owner)}), data generated ${esc(bench.generated_at.slice(0, 10))}.
+            Source: ${esc(bench.source.name)} ${esc(bench.source.version || "")} (${esc(bench.source.owner)}), generated ${esc(bench.generated_at.slice(0, 10))}.
           </figcaption>
         </figure>
 
@@ -263,5 +310,6 @@ export default {
   h1Text: "AI coding agent benchmark — capability versus cost per task",
   keyword: "benchmark",
   jsonLd: [],
+  headExtra: '    <script src="./benchmark.js" defer></script>\n',
   body,
 };
