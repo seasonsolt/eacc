@@ -6,6 +6,22 @@ const SITE = "https://e-acc.ai";
 
 import { navLinks, footerLinks } from "./nav.mjs";
 
+// The entity this site is about. Attached as `about` on the concept pages and
+// mirrored by hand in site/index.html, so Google can tie the spellings people
+// actually type — e/acc, eacc, e-acc — to one Wikidata subject instead of
+// guessing. "eacc" alone is ambiguous (Kenya's anti-corruption commission owns
+// that SERP); the sameAs links are what disambiguate us.
+export const EACC_ENTITY = {
+  "@type": "Thing",
+  name: "Effective accelerationism",
+  alternateName: ["e/acc", "eacc", "e-acc", "E/ACC"],
+  sameAs: [
+    "https://en.wikipedia.org/wiki/Effective_accelerationism",
+    "https://www.wikidata.org/wiki/Q123509272",
+    "https://effectiveaccelerationism.substack.com/p/repost-effective-accelerationism",
+  ],
+};
+
 export function layout({ slug, title, description, h1Cmd, h1Text, jsonLd, body, headExtra = "" }) {
   const canonical = slug === "index" ? `${SITE}/` : `${SITE}/${slug}`;
   // nested slugs (pricing/gpt-5-5) load shared assets from the site root

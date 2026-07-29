@@ -1,5 +1,9 @@
 // /what-is-eacc — the concept hub. Target cluster: "what is e/acc",
-// "e/acc meaning", "effective accelerationism explained", "e/acc vs d/acc".
+// "e/acc meaning", "effective accelerationism explained".
+// The d/acc comparison and the vocabulary have their own pages now; this one
+// stays the parent and links down to both.
+
+import { EACC_ENTITY } from "../layout.mjs";
 
 const FAQ = [
   {
@@ -37,6 +41,11 @@ const body = `
             civilization's trajectory should bend up the Kardashev gradient, toward commanding
             more energy and more intelligence.
           </p>
+          <p>
+            You will see it written <strong>e/acc</strong>, <strong>eacc</strong> or
+            <strong>e-acc</strong> — the slash is styling, not meaning, and all three name the
+            same movement. This page uses e/acc throughout.
+          </p>
 
           <h2>e/acc meaning: the short version</h2>
           <p>
@@ -73,7 +82,8 @@ const body = `
             frontier; e/acc holds that deceleration is the actual existential risk.
             <strong>vs d/acc:</strong> Vitalik Buterin's defensive accelerationism (2023) accepts
             acceleration but wants it aimed — defense, decentralization, biosecurity first; e/acc
-            mostly reads the filtering as decel with better branding.
+            mostly reads the filtering as decel with better branding
+            (<a href="./eacc-vs-dacc">the full e/acc vs d/acc comparison</a>).
             <strong>vs doomers/decels:</strong> the catch-all label for pause advocates; the
             disagreement is total.
           </p>
@@ -107,6 +117,12 @@ ${FAQ.map(
 ).join("\n")}
           </dl>
 
+          <h2>Related</h2>
+          <p class="readme-links">
+            <a href="./eacc-vs-dacc">e/acc vs d/acc — where the two accelerationisms split</a>
+            <a href="./eacc-glossary">e/acc glossary — decel, doomer, p(doom), technocapital, u/acc</a>
+          </p>
+
           <h2>Watch the acceleration itself</h2>
           <p>
             This site is an instrument panel, not a membership card: a
@@ -129,6 +145,7 @@ export default {
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
+      about: EACC_ENTITY,
       mainEntity: FAQ.map(({ q, a }) => ({
         "@type": "Question",
         name: q,

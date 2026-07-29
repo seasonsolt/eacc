@@ -124,6 +124,8 @@ const pageFiles = readdirSync(root, { recursive: true })
 const pages = new Map(pageFiles.map((f) => [f, read(f)]));
 const keywordFor = (file) => {
   if (file === "index.html" || file === "what-is-eacc.html") return "e/acc";
+  if (file === "eacc-vs-dacc.html") return "d/acc";
+  if (file === "eacc-glossary.html") return "glossary";
   if (file === "timeline.html") return "timeline";
   if (file === "calculator.html") return "calculator";
   if (file === "pricing.html" || file.startsWith("pricing/")) return "pricing";

@@ -7,13 +7,15 @@ import { fileURLToPath } from "node:url";
 import { layout } from "./layout.mjs";
 
 import whatIsEacc from "./pages/what-is-eacc.mjs";
+import eaccVsDacc from "./pages/eacc-vs-dacc.mjs";
+import eaccGlossary from "./pages/eacc-glossary.mjs";
 import timeline from "./pages/timeline.mjs";
 import calculator from "./pages/calculator.mjs";
 import pricing from "./pages/pricing.mjs";
 import api from "./pages/api.mjs";
 import benchmark from "./pages/benchmark.mjs";
 
-const pages = [whatIsEacc, timeline, calculator, ...pricing, api, benchmark];
+const pages = [whatIsEacc, eaccVsDacc, eaccGlossary, timeline, calculator, ...pricing, api, benchmark];
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const siteDir = join(root, "site");
 const SITE = "https://e-acc.ai";
